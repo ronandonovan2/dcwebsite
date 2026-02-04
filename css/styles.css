@@ -87,6 +87,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-height);
+    overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1329,6 +1330,8 @@ p {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-size: 200% 100%;
+    will-change: contents;
+    transform: translateZ(0);
 }
 
 /* Counter shimmer after counting completes */
@@ -2076,6 +2079,7 @@ p {
     padding: var(--space-lg) 0;
     background: var(--color-white);
     border-radius: var(--radius-lg);
+    position: relative;
 }
 
 .marquee-content {
@@ -2083,6 +2087,9 @@ p {
     gap: var(--space-xl);
     animation: marquee 90s linear infinite;
     width: max-content;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .marquee-content:hover {
@@ -2091,19 +2098,19 @@ p {
 
 @keyframes marquee {
     from {
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
     }
     to {
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
     }
 }
 
 @keyframes marquee-reverse {
     from {
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
     }
     to {
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
     }
 }
 
@@ -2215,6 +2222,8 @@ p {
     color: var(--color-primary);
     margin-bottom: var(--space-xl);
     transition: color var(--transition-fast);
+    max-width: 100%;
+    word-break: break-word;
 }
 
 .contact-email:hover {
@@ -2701,6 +2710,15 @@ p {
 
     .contact {
         padding-bottom: var(--space-xl); /* 2rem on mobile */
+    }
+
+    .contact-email {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+        font-size: 1rem;
+        text-align: center;
     }
 
     .records-banner {

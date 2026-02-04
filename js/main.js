@@ -399,38 +399,50 @@ function initGallery() {
 }
 
 /* =====================================================
-   SPONSOR MARQUEE
+   SPONSOR MARQUEE (Safari-optimized)
    ===================================================== */
 function initSponsorMarquee() {
     const marqueeContents = document.querySelectorAll('.marquee-content');
-
     if (!marqueeContents.length) return;
 
-    // Duplicate sponsor names inside each row for seamless loop
     marqueeContents.forEach(marqueeContent => {
         const sponsors = marqueeContent.innerHTML;
         marqueeContent.innerHTML = sponsors + sponsors;
+
+        // Force Safari to recalculate styles after content duplication
+        marqueeContent.style.animation = 'none';
+        marqueeContent.offsetHeight; // Trigger reflow
+        marqueeContent.style.animation = '';
     });
 }
 
 /* =====================================================
-   ANIMATED COUNTER
+   ANIMATED COUNTER (Safari-optimized)
    ===================================================== */
 function initAnimatedCounter() {
     const counter = document.querySelector('.counter-number');
-
     if (!counter) return;
 
     const target = parseFloat(counter.dataset.target);
-    const duration = 2500; // ms
-    const fps = 60;
-    const totalFrames = duration / 1000 * fps;
+    const duration = 2500;
+
+    // Reduce fps on mobile for smoother animation
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const fps = isMobile ? 30 : 60;
+    const totalFrames = Math.floor(duration / 1000 * fps);
+
     let frame = 0;
     let hasAnimated = false;
+    let lastFormattedValue = '';
 
     function easeOutQuart(x) {
         return 1 - Math.pow(1 - x, 4);
     }
+
+    const formattedTarget = target.toLocaleString('en-IE', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
     function formatNumber(num) {
         return num.toLocaleString('en-IE', {
@@ -443,18 +455,29 @@ function initAnimatedCounter() {
         frame++;
         const progress = easeOutQuart(frame / totalFrames);
         const currentValue = target * progress;
+        const formatted = formatNumber(currentValue);
 
-        counter.textContent = formatNumber(currentValue);
+        // Only update DOM if value changed
+        if (formatted !== lastFormattedValue) {
+            counter.textContent = formatted;
+            lastFormattedValue = formatted;
+        }
 
         if (frame < totalFrames) {
             requestAnimationFrame(animate);
         } else {
-            counter.textContent = formatNumber(target);
+            counter.textContent = formattedTarget;
             counter.classList.add('counted');
         }
     }
 
-    // Start animation when counter is in view
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counter.textContent = formattedTarget;
+        counter.classList.add('counted');
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !hasAnimated) {
