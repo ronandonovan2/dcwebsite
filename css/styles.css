@@ -2673,30 +2673,60 @@ p {
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
+    /* Hero declutter - reduce element sizes */
+    .hero-date-badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+        margin-bottom: var(--space-md);
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin-bottom: var(--space-sm);
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: var(--space-lg);
+    }
+
     .countdown {
-        gap: var(--space-sm);
+        gap: var(--space-xs);
         flex-wrap: wrap;
         justify-content: center;
+        margin-bottom: var(--space-lg);
     }
 
     .countdown-item {
-        padding: var(--space-md);
-        min-width: 70px;
-        flex: 0 0 calc(50% - var(--space-sm));
+        padding: var(--space-sm);
+        min-width: 65px;
+        flex: 0 0 calc(50% - var(--space-xs));
     }
 
     .countdown-number {
-        font-size: clamp(1.75rem, 8vw, 2.5rem);
+        font-size: clamp(1.5rem, 7vw, 2rem);
+    }
+
+    .countdown-label {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
     }
 
     .hero-buttons {
         flex-direction: column;
         width: 100%;
-        padding: 0 var(--space-lg);
+        padding: 0 var(--space-md);
+        gap: var(--space-sm);
     }
 
     .hero-buttons .btn {
         width: 100%;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        padding: var(--space-sm) var(--space-xl);
+        font-size: 0.95rem;
     }
 
     .btn-hero-primary:hover,
