@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dromtrasna Challenge - Annual charity run in Abbeyfeale, Co. Limerick. 10K Run, 5K Run, 4K Walk, 2K Kids Run. Supporting Milford Care Centre & St. Ita's Community Hospital.">
+    <meta name="keywords" content="Dromtrasna Challenge, charity run, Abbeyfeale, Limerick, 10K, 5K, Milford Care Centre, St Ita's Hospital">
+    <title>Dromtrasna Challenge | Take That Step!</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="nav-header" id="nav-header">
+        <nav class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-default">
+                <img src="images/dromtrasna challenge (3).svg" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-scrolled">
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+
+            <div class="nav-backdrop" id="nav-backdrop"></div>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false">
+                        Event Info
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#events" class="dropdown-link">Details</a></li>
+                        <li><a href="#route" class="dropdown-link">Route</a></li>
+                        <li><a href="#results" class="dropdown-link">2025 Results</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="#impact" class="nav-link">Impact</a></li>
+                <li class="nav-item"><a href="#register" class="nav-link btn-nav-register">Register</a></li>
+                <li class="nav-item nav-donate"><a href="#donate" class="nav-link btn-nav-donate">Donate &hearts;</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-noise"></div>
+            <div class="hero-content">
+                <div class="hero-date-badge animate-fade-up">Saturday, October 17, 2026</div>
+
+                <h1 class="hero-title animate-fade-up delay-1">take that step</h1>
+                <p class="hero-subtitle animate-fade-up delay-2">Every step you take supports Milford Care Centre and St. Ita's Community Hospital</p>
+
+                <div class="countdown animate-fade-up delay-3" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-days">000</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons animate-fade-up delay-4">
+                    <a href="#register" class="btn btn-hero-primary">Register Now</a>
+                    <a href="#donate" class="btn btn-hero-secondary">Donate</a>
+                </div>
+            </div>
+            <div class="hero-scroll">
+                <a href="#about" class="scroll-indicator" aria-label="Scroll to content">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about" id="about">
+            <div class="container">
+                <h2 class="section-title reveal">ABOUT THE CHALLENGE</h2>
+                <div class="about-content">
+                    <div class="about-text reveal">
+                        <p class="lead">Every October, the community of Abbeyfeale comes together for one of Limerick's most inspiring charity events.</p>
+                        <p>The Dromtrasna Challenge is more than just a run - it's a celebration of community spirit, determination, and giving back. Since 2014, we've welcomed thousands of participants from across Ireland to our scenic routes through the beautiful West Limerick countryside.</p>
+                        <p>Starting and finishing at <strong>Dromtrasna National School</strong>, participants of all ages and abilities can take part in our chip-timed competitive runs or enjoy a leisurely walk with family and friends.</p>
+                    </div>
+                    <div class="about-beneficiaries reveal delay-1">
+                        <h3>Supporting Our Community</h3>
+                        <p>All proceeds go to two vital local healthcare services:</p>
+                        <div class="beneficiary-cards" data-stagger="0.12">
+                            <div class="beneficiary-card stagger-item">
+                                <div class="beneficiary-logo">
+                                    <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre Logo">
+                                </div>
+                                <h4>Milford Care Centre</h4>
+                                <p>Providing specialist palliative care and support to patients and families across the Mid-West region.</p>
+                            </div>
+                            <div class="beneficiary-card stagger-item">
+                                <div class="beneficiary-logo">
+                                    <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital Logo">
+                                </div>
+                                <h4>St. Ita's Community Hospital</h4>
+                                <p>Delivering essential healthcare services to the Newcastle West community and surrounding areas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="section events" id="events">
+            <div class="container">
+                <h2 class="section-title reveal">CHOOSE YOUR CHALLENGE</h2>
+                <p class="section-subtitle reveal">Something for everyone - from competitive runners to family walkers</p>
+
+                <div class="events-grid" data-stagger="0.12">
+                    <div class="event-card stagger-item">
+                        <div class="event-distance">10K</div>
+                        <h3 class="event-name">Run</h3>
+                        <ul class="event-details">
+                            <li>Starts at 11:00 AM</li>
+                            <li>Chip-timed race</li>
+                            <li>Scenic countryside route</li>
+                            <li>Perpetual cup for 1st place male & female</li>
+                            <li>Medals for all finishers</li>
+                        </ul>
+                        <a href="#register" class="btn btn-outline">Register</a>
+                    </div>
+
+                    <div class="event-card stagger-item">
+                        <div class="event-distance">5K</div>
+                        <h3 class="event-name">Run</h3>
+                        <ul class="event-details">
+                            <li>Starts at 11:00 AM</li>
+                            <li>Chip-timed race</li>
+                            <li>Perfect for all abilities</li>
+                            <li>Trophies for top finishers</li>
+                            <li>Medals for all finishers</li>
+                        </ul>
+                        <a href="#register" class="btn btn-outline">Register</a>
+                    </div>
+
+                    <div class="event-card stagger-item">
+                        <div class="event-distance">4K</div>
+                        <h3 class="event-name">Walk</h3>
+                        <ul class="event-details">
+                            <li>Starts at 11:00 AM</li>
+                            <li>Leisure pace welcome</li>
+                            <li>Suitable for all ages</li>
+                            <li>Finisher medals for all</li>
+                            <li>Buggy & dog friendly</li>
+                        </ul>
+                        <a href="#register" class="btn btn-outline">Register</a>
+                    </div>
+
+                    <div class="event-card stagger-item">
+                        <div class="event-distance">2K</div>
+                        <h3 class="event-name">Kids Run</h3>
+                        <ul class="event-details">
+                            <li>Starts at 10:00 AM</li>
+                            <li>Fun run for children</li>
+                            <li>Safe supervised route</li>
+                            <li>Medals for all finishers</li>
+                            <li>Great family memories</li>
+                        </ul>
+                        <a href="#register" class="btn btn-outline">Register</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Route Section -->
+        <section class="section route" id="route">
+            <div class="container">
+                <h2 class="section-title reveal">THE ROUTE</h2>
+                <p class="section-subtitle reveal">Experience the beautiful West Limerick countryside</p>
+
+                <div class="route-content">
+                    <div class="route-map reveal-scale">
+                        <img src="images/route-map.jpg" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image">
+                    </div>
+
+                    <div class="route-info">
+                        <div class="route-detail reveal-left delay-1">
+                            <div class="route-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Start & Finish</h4>
+                                <p>Dromtrasna National School, Abbeyfeale, Co. Limerick, V94W5RC</p>
+                            </div>
+                        </div>
+
+                        <div class="route-detail reveal-left delay-2">
+                            <div class="route-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Terrain</h4>
+                                <p>Mixed road through scenic farmland</p>
+                            </div>
+                        </div>
+
+                        <div class="route-detail reveal-left delay-3">
+                            <div class="route-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Elevation</h4>
+                                <p>Challenging hills</p>
+                            </div>
+                        </div>
+
+                        <div class="route-detail reveal-left delay-4">
+                            <div class="route-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Route Notes</h4>
+                                <p>10K follows full loop, 5K takes shorter turn, 4K Walk uses separate scenic path</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="section impact" id="impact">
+            <div class="container">
+                <div class="impact-header reveal">
+                    <span class="impact-years">11 Years</span>
+                    <span class="impact-divider">&bull;</span>
+                    <span class="impact-community">One Community</span>
+                </div>
+
+                <div class="impact-counter-hero reveal">
+                    <div class="impact-counter">
+                        <span class="counter-currency">&euro;</span>
+                        <span class="counter-number" data-target="204658.52">0</span>
+                        <span class="counter-label">Raised for Charity</span>
+                    </div>
+                </div>
+
+                <div class="impact-cards reveal">
+                    <div class="impact-card">
+                        <p class="impact-message">Every euro stays local, supporting Milford Care Centre and St. Ita's Community Hospital when patients and families need it most.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="highlight-badge">2025 Achievement</div>
+                        <p class="highlight-amount">&euro;34,145.63</p>
+                        <p class="highlight-text">raised through our amazing community's year-round fundraising efforts</p>
+                    </div>
+                </div>
+
+                <div class="impact-photos reveal">
+                    <div class="impact-photo-card">
+                        <img src="images/cheque-milford.jpg" alt="Presenting cheque to Milford Care Centre">
+                        <span class="photo-caption">Milford Care Centre</span>
+                    </div>
+                    <div class="impact-photo-card">
+                        <img src="images/cheque-stitas.jpg" alt="Presenting cheque to St. Ita's Community Hospital">
+                        <span class="photo-caption">St. Ita's Community Hospital</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section gallery" id="gallery">
+            <div class="container">
+                <h2 class="section-title reveal">MEMORIES</h2>
+                <p class="section-subtitle reveal">Join hundreds of runners, walkers, and supporters each year</p>
+
+                <div class="gallery-grid" id="gallery-grid" data-stagger="0.08">
+                    <div class="gallery-item stagger-item" data-index="0">
+                        <img src="images/gallery/gallery-1.jpg" alt="Dromtrasna Challenge event photo 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="1">
+                        <img src="images/gallery/gallery-2.jpg" alt="Dromtrasna Challenge event photo 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="2">
+                        <img src="images/gallery/gallery-3.jpg" alt="Dromtrasna Challenge event photo 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="3">
+                        <img src="images/gallery/gallery-4.jpg" alt="Dromtrasna Challenge event photo 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="4">
+                        <img src="images/gallery/gallery-5.jpg" alt="Dromtrasna Challenge event photo 5" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="5">
+                        <img src="images/gallery/gallery-6.jpg" alt="Dromtrasna Challenge event photo 6" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="6">
+                        <img src="images/gallery/gallery-7.jpg" alt="Dromtrasna Challenge event photo 7" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="7">
+                        <img src="images/gallery/gallery-8.jpg" alt="Dromtrasna Challenge event photo 8" loading="lazy">
+                    </div>
+                    <div class="gallery-item stagger-item" data-index="8">
+                        <img src="images/gallery/gallery-9.jpg" alt="Dromtrasna Challenge event photo 9" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="9">
+                        <img src="images/gallery/gallery-10.jpg" alt="Dromtrasna Challenge event photo 10" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="10">
+                        <img src="images/gallery/gallery-11.jpg" alt="Dromtrasna Challenge event photo 11" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="11">
+                        <img src="images/gallery/gallery-12.jpg" alt="Dromtrasna Challenge event photo 12" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="12">
+                        <img src="images/gallery/gallery-13.jpg" alt="Dromtrasna Challenge event photo 13" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="13">
+                        <img src="images/gallery/gallery-14.jpg" alt="Dromtrasna Challenge event photo 14" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="14">
+                        <img src="images/gallery/gallery-15.jpg" alt="Dromtrasna Challenge event photo 15" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="15">
+                        <img src="images/gallery/gallery-16.jpg" alt="Dromtrasna Challenge event photo 16" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="16">
+                        <img src="images/gallery/gallery-17.jpg" alt="Dromtrasna Challenge event photo 17" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="17">
+                        <img src="images/gallery/gallery-18.jpg" alt="Dromtrasna Challenge event photo 18" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="18">
+                        <img src="images/gallery/gallery-19.jpg" alt="Dromtrasna Challenge event photo 19" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="19">
+                        <img src="images/gallery/gallery-20.jpg" alt="Dromtrasna Challenge event photo 20" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="20">
+                        <img src="images/gallery/gallery-21.jpg" alt="Dromtrasna Challenge event photo 21" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="21">
+                        <img src="images/gallery/gallery-22.jpg" alt="Dromtrasna Challenge event photo 22" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="22">
+                        <img src="images/gallery/gallery-23.jpg" alt="Dromtrasna Challenge event photo 23" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="23">
+                        <img src="images/gallery/gallery-24.jpg" alt="Dromtrasna Challenge event photo 24" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="24">
+                        <img src="images/gallery/gallery-25.jpg" alt="Dromtrasna Challenge event photo 25" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="25">
+                        <img src="images/gallery/gallery-26.jpg" alt="Dromtrasna Challenge event photo 26" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="26">
+                        <img src="images/gallery/gallery-27.jpg" alt="Dromtrasna Challenge event photo 27" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="27">
+                        <img src="images/gallery/gallery-28.jpg" alt="Dromtrasna Challenge event photo 28" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="28">
+                        <img src="images/gallery/gallery-29.jpg" alt="Dromtrasna Challenge event photo 29" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="29">
+                        <img src="images/gallery/gallery-30.jpg" alt="Dromtrasna Challenge event photo 30" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="30">
+                        <img src="images/gallery/gallery-31.jpg" alt="Dromtrasna Challenge event photo 31" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item--extra" data-index="31">
+                        <img src="images/gallery/gallery-32.jpg" alt="Dromtrasna Challenge event photo 32" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="gallery-toggle-wrap reveal">
+                    <button class="btn btn-outline btn-gallery-toggle" id="gallery-toggle" aria-expanded="false">
+                        <span class="gallery-toggle-text">View All Memories</span>
+                        <svg class="gallery-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox">
+                <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+                <button class="lightbox-prev" aria-label="Previous image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="lightbox-content">
+                    <img src="" alt="" class="lightbox-image" id="lightbox-image">
+                    <span class="lightbox-counter" id="lightbox-counter"></span>
+                </div>
+                <button class="lightbox-next" aria-label="Next image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="section results" id="results">
+            <div class="container">
+                <h2 class="section-title reveal">2025 RESULTS</h2>
+                <p class="section-subtitle reveal">Celebrating our fastest finishers</p>
+
+                <div class="leaderboard-grid">
+                    <div class="leaderboard reveal-left">
+                        <h3 class="leaderboard-title">Men's</h3>
+                        <div class="gender-results">
+                            <div class="leaderboard-section">
+                                <h5 class="leaderboard-category">5K</h5>
+                                <div class="podium">
+                                    <div class="podium-item gold">
+                                        <span class="position">1</span>
+                                        <span class="name">Jakub Winicki</span>
+                                        <span class="time">18:28</span>
+                                    </div>
+                                    <div class="podium-item silver">
+                                        <span class="position">2</span>
+                                        <span class="name">John Paul O'Connell</span>
+                                        <span class="time">18:33</span>
+                                    </div>
+                                    <div class="podium-item bronze">
+                                        <span class="position">3</span>
+                                        <span class="name">Paul Crotty</span>
+                                        <span class="time">27:20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-section">
+                                <h5 class="leaderboard-category">10K</h5>
+                                <div class="podium">
+                                    <div class="podium-item gold">
+                                        <span class="position">1</span>
+                                        <span class="name">John Fitzgerald</span>
+                                        <span class="time">36:10</span>
+                                    </div>
+                                    <div class="podium-item silver">
+                                        <span class="position">2</span>
+                                        <span class="name">Caleb Morris</span>
+                                        <span class="time">42:35</span>
+                                    </div>
+                                    <div class="podium-item bronze">
+                                        <span class="position">3</span>
+                                        <span class="name">Aiden Guinane</span>
+                                        <span class="time">45:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leaderboard reveal-right delay-1">
+                        <h3 class="leaderboard-title">Women's</h3>
+                        <div class="gender-results">
+                            <div class="leaderboard-section">
+                                <h5 class="leaderboard-category">5K</h5>
+                                <div class="podium">
+                                    <div class="podium-item gold">
+                                        <span class="position">1</span>
+                                        <span class="name">Grace O'Donnell</span>
+                                        <span class="time">21:03</span>
+                                    </div>
+                                    <div class="podium-item silver">
+                                        <span class="position">2</span>
+                                        <span class="name">Bridget Liston</span>
+                                        <span class="time">25:35</span>
+                                    </div>
+                                    <div class="podium-item bronze">
+                                        <span class="position">3</span>
+                                        <span class="name">Niamh McDonagh</span>
+                                        <span class="time">27:15</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leaderboard-section">
+                                <h5 class="leaderboard-category">10K</h5>
+                                <div class="podium">
+                                    <div class="podium-item gold">
+                                        <span class="position">1</span>
+                                        <span class="name">Catherine Doody</span>
+                                        <span class="time">52:58</span>
+                                    </div>
+                                    <div class="podium-item silver">
+                                        <span class="position">2</span>
+                                        <span class="name">Celia Brighten</span>
+                                        <span class="time">59:12</span>
+                                    </div>
+                                    <div class="podium-item bronze">
+                                        <span class="position">3</span>
+                                        <span class="name">Tara Carr</span>
+                                        <span class="time">59:12</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-cta reveal">
+                    <a href="https://myrunresults.com/events/dromtrasna_challenge/5972/results" target="_blank" rel="noopener" class="btn btn-primary">
+                        View All Results
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register & Donate CTAs -->
+        <section class="section cta-section" id="register">
+            <div class="container">
+                <div class="cta-grid">
+                    <div class="cta-card register reveal-left">
+                        <div class="cta-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Register for 2026</h3>
+                        <p>Secure your spot in the Dromtrasna Challenge. Choose from 10K, 5K, 4K Walk, or 2K Kids Run.</p>
+                        <ul class="cta-features">
+                            <li>Chip timing for competitive events</li>
+                            <li>Finisher medal for all participants</li>
+                            <li>Refreshments at finish line</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+                            Register on Eventmaster
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="cta-card donate reveal-right" id="donate">
+                        <div class="cta-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Make a Donation</h3>
+                        <p>Can't make it on the day? You can still support Milford Care Centre and St. Ita's Hospital.</p>
+                        <ul class="cta-features">
+                            <li>100% goes to charity</li>
+                            <li>Supports local healthcare</li>
+                            <li>Every amount makes a difference</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
+                            Donate Now
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sponsors Section -->
+        <section class="section sponsors" id="sponsors">
+            <div class="container">
+                <h2 class="section-title reveal">OUR SPONSORS</h2>
+                <p class="section-subtitle reveal">Thank you to our generous supporters who make this event possible</p>
+
+                <div class="main-sponsors reveal">
+                    <h3 class="sponsors-tier-title">Main Sponsors</h3>
+                    <div class="main-sponsors-grid" data-stagger="0.12">
+                        <div class="sponsor-logo stagger-item">
+                            <img src="images/sponsors/sponsor-1.png" alt="Sponsor 1">
+                        </div>
+                        <div class="sponsor-logo stagger-item">
+                            <img src="images/sponsors/sponsor-2.png" alt="Sponsor 2">
+                        </div>
+                        <div class="sponsor-logo stagger-item">
+                            <img src="images/sponsors/sponsor-3.png" alt="Sponsor 3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="community-sponsors reveal">
+                    <h3 class="sponsors-tier-title">Community Supporters</h3>
+                    <!-- Top row - scrolls left -->
+                    <div class="sponsors-marquee">
+                        <div class="marquee-content" data-marquee-row="1">
+                            <span class="sponsor-name">Abbey Stone & Tile Centre</span>
+                            <span class="sponsor-name">Abbeyfeale Credit Union</span>
+                            <span class="sponsor-name">Abbeyfeale Cycling Club</span>
+                            <span class="sponsor-name">Ardseal Limited</span>
+                            <span class="sponsor-name">Bridge Engineering Ltd</span>
+                            <span class="sponsor-name">Castletroy College Staff</span>
+                            <span class="sponsor-name">Castletroy College Students</span>
+                            <span class="sponsor-name">Christy Noonan Carpentry</span>
+                            <span class="sponsor-name">Clareco Scaffolding Ltd</span>
+                            <span class="sponsor-name">Clean Habit Ltd</span>
+                            <span class="sponsor-name">Coláiste íde agus Iosef</span>
+                            <span class="sponsor-name">Curran Aluminium & PVC</span>
+                            <span class="sponsor-name">Cut 'n' Curl, Abbeyfeale</span>
+                            <span class="sponsor-name">Daarwood Pharmacy</span>
+                            <span class="sponsor-name">DesignPro Automation</span>
+                            <span class="sponsor-name">Devon Inn Hotel</span>
+                            <span class="sponsor-name">Dornan Engineering Ltd</span>
+                            <span class="sponsor-name">Dromtrasna National School</span>
+                            <span class="sponsor-name">Feale Oil Products</span>
+                            <span class="sponsor-name">Feale Security, Knocknagoshal</span>
+                            <span class="sponsor-name">FITALL Shopfitters Ltd</span>
+                            <span class="sponsor-name">Floors by Design, Templeglantine</span>
+                            <span class="sponsor-name">FRESCO Security Ltd</span>
+                            <span class="sponsor-name">Garry Brothers (Ballyneety) Ltd</span>
+                            <span class="sponsor-name">Greenway Hub</span>
+                            <span class="sponsor-name">ISHKA Spring Water</span>
+                            <span class="sponsor-name">J & B O'Sullivan, Abbeyfeale</span>
+                            <span class="sponsor-name">JDM Photography</span>
+                            <span class="sponsor-name">Jeremiah Roche D.J.</span>
+                            <span class="sponsor-name">John Lacey, Strand</span>
+                            <span class="sponsor-name">John Sisk & Son (Holdings) Ltd</span>
+                            <span class="sponsor-name">Kirby Group Engineering Ltd</span>
+                            <span class="sponsor-name">Kyotech Service Providers</span>
+                            <span class="sponsor-name">Leens Hotel, Abbeyfeale</span>
+                        </div>
+                    </div>
+                    <!-- Bottom row - scrolls right -->
+                    <div class="sponsors-marquee marquee-reverse">
+                        <div class="marquee-content" data-marquee-row="2">
+                            <span class="sponsor-name">Leo Lynch Engineering Contractors</span>
+                            <span class="sponsor-name">Locomotion Bike Rental</span>
+                            <span class="sponsor-name">Malbay Painting & Maintenance</span>
+                            <span class="sponsor-name">McElligotts Furniture Abbeyfeale</span>
+                            <span class="sponsor-name">Meenkilly National School</span>
+                            <span class="sponsor-name">MEP Engineering Services</span>
+                            <span class="sponsor-name">Mercury Engineering Ltd</span>
+                            <span class="sponsor-name">Mullally Security Irl. Ltd.</span>
+                            <span class="sponsor-name">Niaron Civil Engineering</span>
+                            <span class="sponsor-name">O'Riordan's Pharmacies</span>
+                            <span class="sponsor-name">O'Sullivan Fabrications Ltd</span>
+                            <span class="sponsor-name">P.J. Quinn Ltd</span>
+                            <span class="sponsor-name">Paul Callinan Plant Hire Ltd</span>
+                            <span class="sponsor-name">Q3 Security Systems</span>
+                            <span class="sponsor-name">RED CROSS</span>
+                            <span class="sponsor-name">SafeGuard Security</span>
+                            <span class="sponsor-name">SCANLONS, Abbeyfeale</span>
+                            <span class="sponsor-name">Scotsolve Limited</span>
+                            <span class="sponsor-name">Sean Guinane Ceilings & Partitions</span>
+                            <span class="sponsor-name">Seamus & Maria Horgan</span>
+                            <span class="sponsor-name">Sigma Signs, Abbeyfeale</span>
+                            <span class="sponsor-name">Siopa Milseáin, Abbeyfeale</span>
+                            <span class="sponsor-name">Southern Mosaic Co Limited</span>
+                            <span class="sponsor-name">Spin Doctor Cycles, Abbeyfeale</span>
+                            <span class="sponsor-name">Superbites Family Restaurants</span>
+                            <span class="sponsor-name">T Nolan & Sons Limited</span>
+                            <span class="sponsor-name">The Cellar Bar, Abbeyfeale</span>
+                            <span class="sponsor-name">Tie the Knot Weddings</span>
+                            <span class="sponsor-name">Toco Welding Ltd</span>
+                            <span class="sponsor-name">Top Part Holdings</span>
+                            <span class="sponsor-name">Twohig's SuperValu, Abbeyfeale</span>
+                            <span class="sponsor-name">WARDS Waste Products</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section faq" id="faq">
+            <div class="container">
+                <h2 class="section-title reveal">FAQ'S</h2>
+
+                <div class="faq-list">
+                    <div class="faq-item reveal">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What time does registration open on the day?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>On-the-day registration opens at 9:00 AM at Dromtrasna National School. We recommend arriving early to allow time for parking and warm-up. Pre-registration online is strongly encouraged as it's faster and helps us plan better.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal delay-1">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Where can I park?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Free parking is available at Dromtrasna National School and in the adjacent field. Stewards will direct you on arrival. Please follow their instructions and car pool where possible.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal delay-2">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I register on the day?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, on-the-day registration is available for all events. However, pre-registration is required to receive a chip for the timed runs. We strongly recommend registering online in advance to guarantee your spot and avoid queues on the morning.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal delay-1">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Are dogs and buggies allowed on the walk?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes! The 4K Walk is family-friendly and welcomes dogs (on leads) and buggies. Please be mindful of other participants and clean up after your pets.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal delay-2">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Will there be water stations on the route?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, water stations are positioned along the 10K and 5K routes. There is also water and refreshments available at the finish line for all participants.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What happens if it rains?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>The event goes ahead rain or shine - this is Ireland after all! Please dress appropriately for the weather conditions. In the unlikely event of extreme weather making conditions unsafe, we will communicate via our social media channels.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact" id="contact">
+            <div class="container">
+                <h2 class="section-title reveal">GET IN TOUCH</h2>
+                <p class="section-subtitle reveal">Have a question? We'd love to hear from you</p>
+
+                <div class="contact-content reveal">
+                    <a href="mailto:dromtrasnachallenge@gmail.com" class="contact-email">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        dromtrasnachallenge@gmail.com
+                    </a>
+
+                    <div class="social-links">
+                        <a href="https://facebook.com/DromtrasnaChallenge" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com/dromtrasnachallenge" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="18" cy="6" r="1" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Animated runner track -->
+        <div class="footer-runner-track" aria-hidden="true">
+            <div class="footer-track-line"></div>
+            <div class="footer-runner">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7" fill="currentColor"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-content">
+                <!-- Column 1: Brand -->
+                <div class="footer-brand">
+                    <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="footer-logo-img">
+                    <p class="footer-tagline">Take that step!</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com/DromtrasnaChallenge" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com/dromtrasnachallenge" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="18" cy="6" r="1" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-links">
+                    <h4 class="footer-heading">quick links</h4>
+                    <nav class="footer-nav" aria-label="Footer navigation">
+                        <a href="#about">About</a>
+                        <a href="#events">Events</a>
+                        <a href="#route">Route</a>
+                        <a href="#impact">Impact</a>
+                        <a href="#faq">FAQ</a>
+                        <a href="#contact">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Column 3: Beneficiaries -->
+                <div class="footer-beneficiaries">
+                    <h4 class="footer-heading">proudly supporting</h4>
+                    <div class="footer-charity-cards">
+                        <a href="https://milfordcarecentre.ie" target="_blank" rel="noopener" class="footer-charity-card">
+                            <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre" class="footer-charity-logo">
+                            <span>Milford Care Centre</span>
+                        </a>
+                        <a href="https://friendsofstitas.ie" target="_blank" rel="noopener" class="footer-charity-card">
+                            <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital" class="footer-charity-logo">
+                            <span>St. Ita's Hospital</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finish line bar -->
+            <div class="footer-finish-line" aria-hidden="true"></div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Dromtrasna Challenge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
