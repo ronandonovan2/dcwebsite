@@ -478,6 +478,21 @@ function initAnimatedCounter() {
         return;
     }
 
+    // Skip counting animation on mobile (causes glitching), keep yellow shimmer
+    if (isMobile) {
+        counter.textContent = formattedTarget;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    counter.classList.add('counted');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(counter);
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !hasAnimated) {
