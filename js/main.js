@@ -427,7 +427,7 @@ function initAnimatedCounter() {
     const duration = 2500;
 
     // Reduce fps on mobile for smoother animation
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = window.innerWidth <= 768;
     const fps = isMobile ? 30 : 60;
     const totalFrames = Math.floor(duration / 1000 * fps);
 
