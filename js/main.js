@@ -479,7 +479,7 @@ function initAnimatedCounter() {
     }
 
     // Skip counting animation on mobile (causes glitching), keep yellow shimmer
-    if (isMobile) {
+    if (window.innerWidth <= 768) {
         counter.textContent = formattedTarget;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
