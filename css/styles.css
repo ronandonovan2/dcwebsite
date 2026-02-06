@@ -72,7 +72,7 @@ p{margin-bottom:var(--space-md)}
 .dropdown.active .dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%)translateY(0)}
 .dropdown-link{display:block;padding:var(--space-md)var(--space-lg);font-weight:500;color:var(--color-gray-700);transition:all var(--transition-fast)}
 .dropdown-link:hover{background:var(--color-light);color:var(--color-primary)}
-@media (max-width:768px){.nav-menu{position:fixed;top:0;right:-100%;width:80%;max-width:320px;height:100vh;height:100dvh;background:var(--color-white);flex-direction:column;align-items:flex-start;padding:calc(var(--nav-height)+ var(--space-xl))var(--space-xl);gap:var(--space-sm);transition:right var(--transition-base);box-shadow:var(--shadow-xl);z-index:1000}
+@media (max-width:768px){.nav-menu{position:fixed;top:0;right:-100%;width:100%;height:100vh;height:100dvh;background:var(--color-white);flex-direction:column;align-items:flex-start;padding:calc(var(--nav-height)+ var(--space-xl))var(--space-xl);gap:var(--space-sm);transition:right var(--transition-base);box-shadow:var(--shadow-xl);z-index:1000}
 .nav-menu.active{right:0}
 .nav-toggle.active .hamburger::before,.nav-toggle.active .hamburger::after{background:var(--color-dark)}
 .nav-item{width:100%}
