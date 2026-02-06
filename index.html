@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Dromtrasna Challenge - Annual charity run in Abbeyfeale, Co. Limerick. 10K Run, 5K Run, 4K Walk, 2K Kids Run. Supporting Milford Care Centre & St. Ita's Community Hospital.">
     <meta name="keywords" content="Dromtrasna Challenge, charity run, Abbeyfeale, Limerick, 10K, 5K, Milford Care Centre, St Ita's Hospital">
+    <meta name="theme-color" content="#1A237E">
     <title>Dromtrasna Challenge | Take That Step!</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="images/hero.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="fonts/PlaneCrash.ttf" as="font" type="font/ttf" crossorigin>
+
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google Fonts: non-render-blocking loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet"></noscript>
 </head>
 <body>
     <!-- Navigation -->
     <header class="nav-header" id="nav-header">
         <nav class="nav-container">
             <a href="#" class="nav-logo">
-                <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-default">
-                <img src="images/dromtrasna challenge (3).svg" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-scrolled">
+                <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-default" width="400" height="129">
+                <img src="images/dromtrasna challenge (3).svg" alt="Dromtrasna Challenge" class="nav-logo-img nav-logo-scrolled" width="1487" height="488">
             </a>
 
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -109,14 +119,14 @@
                         <div class="beneficiary-cards" data-stagger="0.12">
                             <div class="beneficiary-card stagger-item">
                                 <div class="beneficiary-logo">
-                                    <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre Logo">
+                                    <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre Logo" width="400" height="225" loading="lazy" decoding="async">
                                 </div>
                                 <h4>Milford Care Centre</h4>
                                 <p>Providing specialist palliative care and support to patients and families across the Mid-West region.</p>
                             </div>
                             <div class="beneficiary-card stagger-item">
                                 <div class="beneficiary-logo">
-                                    <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital Logo">
+                                    <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital Logo" width="200" height="200" loading="lazy" decoding="async">
                                 </div>
                                 <h4>St. Ita's Community Hospital</h4>
                                 <p>Delivering essential healthcare services to the Newcastle West community and surrounding areas.</p>
@@ -197,7 +207,7 @@
 
                 <div class="route-content">
                     <div class="route-map reveal-scale">
-                        <img src="images/route-map.jpg" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image">
+                        <img src="images/route-map.jpg" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image" width="800" height="952" loading="lazy" decoding="async">
                     </div>
 
                     <div class="route-info">
@@ -283,11 +293,11 @@
 
                 <div class="impact-photos reveal">
                     <div class="impact-photo-card">
-                        <img src="images/cheque-milford.jpg" alt="Presenting cheque to Milford Care Centre">
+                        <img src="images/cheque-milford.jpg" alt="Presenting cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
                         <span class="photo-caption">Milford Care Centre</span>
                     </div>
                     <div class="impact-photo-card">
-                        <img src="images/cheque-stitas.jpg" alt="Presenting cheque to St. Ita's Community Hospital">
+                        <img src="images/cheque-stitas.jpg" alt="Presenting cheque to St. Ita's Community Hospital" width="800" height="620" loading="lazy" decoding="async">
                         <span class="photo-caption">St. Ita's Community Hospital</span>
                     </div>
                 </div>
@@ -302,100 +312,100 @@
 
                 <div class="gallery-grid" id="gallery-grid" data-stagger="0.08">
                     <div class="gallery-item stagger-item" data-index="0">
-                        <img src="images/gallery/gallery-1.jpg" alt="Dromtrasna Challenge event photo 1" loading="lazy">
+                        <img src="images/gallery/gallery-1.jpg" alt="Dromtrasna Challenge event photo 1" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="1">
-                        <img src="images/gallery/gallery-2.jpg" alt="Dromtrasna Challenge event photo 2" loading="lazy">
+                        <img src="images/gallery/gallery-2.jpg" alt="Dromtrasna Challenge event photo 2" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="2">
-                        <img src="images/gallery/gallery-3.jpg" alt="Dromtrasna Challenge event photo 3" loading="lazy">
+                        <img src="images/gallery/gallery-3.jpg" alt="Dromtrasna Challenge event photo 3" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="3">
-                        <img src="images/gallery/gallery-4.jpg" alt="Dromtrasna Challenge event photo 4" loading="lazy">
+                        <img src="images/gallery/gallery-4.jpg" alt="Dromtrasna Challenge event photo 4" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="4">
-                        <img src="images/gallery/gallery-5.jpg" alt="Dromtrasna Challenge event photo 5" loading="lazy">
+                        <img src="images/gallery/gallery-5.jpg" alt="Dromtrasna Challenge event photo 5" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="5">
-                        <img src="images/gallery/gallery-6.jpg" alt="Dromtrasna Challenge event photo 6" loading="lazy">
+                        <img src="images/gallery/gallery-6.jpg" alt="Dromtrasna Challenge event photo 6" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="6">
-                        <img src="images/gallery/gallery-7.jpg" alt="Dromtrasna Challenge event photo 7" loading="lazy">
+                        <img src="images/gallery/gallery-7.jpg" alt="Dromtrasna Challenge event photo 7" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="7">
-                        <img src="images/gallery/gallery-8.jpg" alt="Dromtrasna Challenge event photo 8" loading="lazy">
+                        <img src="images/gallery/gallery-8.jpg" alt="Dromtrasna Challenge event photo 8" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item stagger-item" data-index="8">
-                        <img src="images/gallery/gallery-9.jpg" alt="Dromtrasna Challenge event photo 9" loading="lazy">
+                        <img src="images/gallery/gallery-9.jpg" alt="Dromtrasna Challenge event photo 9" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="9">
-                        <img src="images/gallery/gallery-10.jpg" alt="Dromtrasna Challenge event photo 10" loading="lazy">
+                        <img src="images/gallery/gallery-10.jpg" alt="Dromtrasna Challenge event photo 10" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="10">
-                        <img src="images/gallery/gallery-11.jpg" alt="Dromtrasna Challenge event photo 11" loading="lazy">
+                        <img src="images/gallery/gallery-11.jpg" alt="Dromtrasna Challenge event photo 11" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="11">
-                        <img src="images/gallery/gallery-12.jpg" alt="Dromtrasna Challenge event photo 12" loading="lazy">
+                        <img src="images/gallery/gallery-12.jpg" alt="Dromtrasna Challenge event photo 12" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="12">
-                        <img src="images/gallery/gallery-13.jpg" alt="Dromtrasna Challenge event photo 13" loading="lazy">
+                        <img src="images/gallery/gallery-13.jpg" alt="Dromtrasna Challenge event photo 13" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="13">
-                        <img src="images/gallery/gallery-14.jpg" alt="Dromtrasna Challenge event photo 14" loading="lazy">
+                        <img src="images/gallery/gallery-14.jpg" alt="Dromtrasna Challenge event photo 14" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="14">
-                        <img src="images/gallery/gallery-15.jpg" alt="Dromtrasna Challenge event photo 15" loading="lazy">
+                        <img src="images/gallery/gallery-15.jpg" alt="Dromtrasna Challenge event photo 15" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="15">
-                        <img src="images/gallery/gallery-16.jpg" alt="Dromtrasna Challenge event photo 16" loading="lazy">
+                        <img src="images/gallery/gallery-16.jpg" alt="Dromtrasna Challenge event photo 16" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="16">
-                        <img src="images/gallery/gallery-17.jpg" alt="Dromtrasna Challenge event photo 17" loading="lazy">
+                        <img src="images/gallery/gallery-17.jpg" alt="Dromtrasna Challenge event photo 17" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="17">
-                        <img src="images/gallery/gallery-18.jpg" alt="Dromtrasna Challenge event photo 18" loading="lazy">
+                        <img src="images/gallery/gallery-18.jpg" alt="Dromtrasna Challenge event photo 18" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="18">
-                        <img src="images/gallery/gallery-19.jpg" alt="Dromtrasna Challenge event photo 19" loading="lazy">
+                        <img src="images/gallery/gallery-19.jpg" alt="Dromtrasna Challenge event photo 19" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="19">
-                        <img src="images/gallery/gallery-20.jpg" alt="Dromtrasna Challenge event photo 20" loading="lazy">
+                        <img src="images/gallery/gallery-20.jpg" alt="Dromtrasna Challenge event photo 20" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="20">
-                        <img src="images/gallery/gallery-21.jpg" alt="Dromtrasna Challenge event photo 21" loading="lazy">
+                        <img src="images/gallery/gallery-21.jpg" alt="Dromtrasna Challenge event photo 21" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="21">
-                        <img src="images/gallery/gallery-22.jpg" alt="Dromtrasna Challenge event photo 22" loading="lazy">
+                        <img src="images/gallery/gallery-22.jpg" alt="Dromtrasna Challenge event photo 22" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="22">
-                        <img src="images/gallery/gallery-23.jpg" alt="Dromtrasna Challenge event photo 23" loading="lazy">
+                        <img src="images/gallery/gallery-23.jpg" alt="Dromtrasna Challenge event photo 23" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="23">
-                        <img src="images/gallery/gallery-24.jpg" alt="Dromtrasna Challenge event photo 24" loading="lazy">
+                        <img src="images/gallery/gallery-24.jpg" alt="Dromtrasna Challenge event photo 24" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="24">
-                        <img src="images/gallery/gallery-25.jpg" alt="Dromtrasna Challenge event photo 25" loading="lazy">
+                        <img src="images/gallery/gallery-25.jpg" alt="Dromtrasna Challenge event photo 25" width="800" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="25">
-                        <img src="images/gallery/gallery-26.jpg" alt="Dromtrasna Challenge event photo 26" loading="lazy">
+                        <img src="images/gallery/gallery-26.jpg" alt="Dromtrasna Challenge event photo 26" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="26">
-                        <img src="images/gallery/gallery-27.jpg" alt="Dromtrasna Challenge event photo 27" loading="lazy">
+                        <img src="images/gallery/gallery-27.jpg" alt="Dromtrasna Challenge event photo 27" width="1200" height="675" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="27">
-                        <img src="images/gallery/gallery-28.jpg" alt="Dromtrasna Challenge event photo 28" loading="lazy">
+                        <img src="images/gallery/gallery-28.jpg" alt="Dromtrasna Challenge event photo 28" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="28">
-                        <img src="images/gallery/gallery-29.jpg" alt="Dromtrasna Challenge event photo 29" loading="lazy">
+                        <img src="images/gallery/gallery-29.jpg" alt="Dromtrasna Challenge event photo 29" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="29">
-                        <img src="images/gallery/gallery-30.jpg" alt="Dromtrasna Challenge event photo 30" loading="lazy">
+                        <img src="images/gallery/gallery-30.jpg" alt="Dromtrasna Challenge event photo 30" width="1200" height="1200" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="30">
-                        <img src="images/gallery/gallery-31.jpg" alt="Dromtrasna Challenge event photo 31" loading="lazy">
+                        <img src="images/gallery/gallery-31.jpg" alt="Dromtrasna Challenge event photo 31" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                     <div class="gallery-item gallery-item--extra" data-index="31">
-                        <img src="images/gallery/gallery-32.jpg" alt="Dromtrasna Challenge event photo 32" loading="lazy">
+                        <img src="images/gallery/gallery-32.jpg" alt="Dromtrasna Challenge event photo 32" width="1200" height="799" loading="lazy" decoding="async">
                     </div>
                 </div>
 
@@ -599,13 +609,13 @@
                     <h3 class="sponsors-tier-title">Main Sponsors</h3>
                     <div class="main-sponsors-grid" data-stagger="0.12">
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-1.png" alt="Sponsor 1">
+                            <img src="images/sponsors/sponsor-1.png" alt="Sponsor 1" width="300" height="139" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-2.png" alt="Sponsor 2">
+                            <img src="images/sponsors/sponsor-2.png" alt="Sponsor 2" width="1133" height="318" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-3.png" alt="Sponsor 3">
+                            <img src="images/sponsors/sponsor-3.png" alt="Sponsor 3" width="338" height="180" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
@@ -823,7 +833,7 @@
             <div class="footer-content">
                 <!-- Column 1: Brand -->
                 <div class="footer-brand">
-                    <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="footer-logo-img">
+                    <img src="images/dromtrasna challenge.png" alt="Dromtrasna Challenge" class="footer-logo-img" width="400" height="129" loading="lazy" decoding="async">
                     <p class="footer-tagline">Take that step!</p>
                     <div class="footer-social">
                         <a href="https://facebook.com/DromtrasnaChallenge" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
@@ -859,11 +869,11 @@
                     <h4 class="footer-heading">proudly supporting</h4>
                     <div class="footer-charity-cards">
                         <a href="https://milfordcarecentre.ie" target="_blank" rel="noopener" class="footer-charity-card">
-                            <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre" class="footer-charity-logo">
+                            <img src="images/Charity Logo's/milford-logo.png" alt="Milford Care Centre" class="footer-charity-logo" width="400" height="225" loading="lazy" decoding="async">
                             <span>Milford Care Centre</span>
                         </a>
                         <a href="https://friendsofstitas.ie" target="_blank" rel="noopener" class="footer-charity-card">
-                            <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital" class="footer-charity-logo">
+                            <img src="images/Charity Logo's/Friends-of-st-ita-logo.webp" alt="Friends of St. Ita's Community Hospital" class="footer-charity-logo" width="200" height="200" loading="lazy" decoding="async">
                             <span>St. Ita's Hospital</span>
                         </a>
                     </div>
@@ -879,6 +889,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html> 
