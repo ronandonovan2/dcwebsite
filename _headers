@@ -1,0 +1,39 @@
+# Cloudflare Pages headers
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# The site loads zero third-party resources (fonts are self-hosted, no analytics,
+# no embeds), so the Content-Security-Policy below can be fully strict:
+# no 'unsafe-inline' and no 'unsafe-eval' anywhere.
+#
+# If you ever add an embed (YouTube, a map, a donation widget, analytics), that
+# resource WILL be blocked until you add its origin to the matching directive.
+# Symptom: the embed is silently blank and the browser console shows a
+# "Refused to load ..." CSP error naming the directive you need to extend.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+
+# Fingerprint-free filenames, but content changes rarely. Long cache with
+# revalidation keeps repeat visits fast without stranding visitors on old images.
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS and JS are NOT content-hashed, so they must never be cached hard --
+# otherwise an edit here would not reach anyone who has already visited.
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# The page itself must always be revalidated so content edits go live immediately.
+/
+  Cache-Control: public, max-age=0, must-revalidate

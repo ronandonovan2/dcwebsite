@@ -2,6 +2,40 @@
    DROMTRASNA CHALLENGE - MAIN JAVASCRIPT
    ===================================================== */
 
+/* =====================================================
+   SCROLL LOCK (iOS-safe)
+   -----------------------------------------------------
+   iOS Safari ignores `body{overflow:hidden}`, so the page scrolls behind the
+   open nav menu and lightbox. Pinning the body with position:fixed is the only
+   approach that works there; we stash the scroll offset and restore it on
+   unlock so the reader does not lose their place.
+   ===================================================== */
+const scrollLock = (function() {
+    let savedY = 0;
+    let depth = 0;
+    return {
+        lock() {
+            if (depth++ > 0) return;
+            savedY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${savedY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.overflow = 'hidden';
+        },
+        unlock() {
+            if (depth === 0 || --depth > 0) return;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.overflow = '';
+            // instant, not smooth: this is a restore, not a navigation
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+        }
+    };
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
     initNavigation();
@@ -13,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSponsorMarquee();
     initAnimatedCounter();
     initParallax();
+    initAnimationPausing();
 
     // Add loaded class to hero for animation
     setTimeout(() => {
@@ -31,11 +66,12 @@ function initNavigation() {
     const dropdowns = document.querySelectorAll('.dropdown');
 
     function closeMenu() {
+        if (!menu?.classList.contains('active')) return;
         toggle?.classList.remove('active');
         menu?.classList.remove('active');
         backdrop?.classList.remove('active');
         toggle?.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        scrollLock.unlock();
     }
 
     // Mobile menu toggle
@@ -48,7 +84,7 @@ function initNavigation() {
             menu.classList.add('active');
             backdrop?.classList.add('active');
             toggle.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
+            scrollLock.lock();
         }
     });
 
@@ -127,7 +163,10 @@ function initNavigation() {
    COUNTDOWN TIMER
    ===================================================== */
 function initCountdown() {
-    const eventDate = new Date('October 17, 2026 10:00:00').getTime();
+    // Explicit ISO-8601 with offset: race day is 10:00 Irish Standard Time (UTC+1).
+    // Ireland stays on IST until the last Sunday of October (25 Oct 2026), so +01:00
+    // is correct. A bare date string would be parsed in the VIEWER's timezone instead.
+    const eventDate = new Date('2026-10-17T10:00:00+01:00').getTime();
 
     const daysEl = document.getElementById('countdown-days');
     const hoursEl = document.getElementById('countdown-hours');
@@ -319,18 +358,57 @@ function initGallery() {
         }
     }
 
+    // Element that opened the lightbox, so focus can be handed back on close.
+    let lastFocused = null;
+
     function openLightbox(index) {
         currentIndex = index;
         lightboxImage.src = images[index] || '';
         lightboxImage.alt = `Gallery image ${index + 1}`;
         updateCounter();
+        lastFocused = document.activeElement;
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        scrollLock.lock();
+        // Move focus into the dialog so keyboard and screen-reader users are
+        // not left behind it; without this the modal is a keyboard trap in
+        // the worst sense - unreachable rather than contained.
+        // A hidden element cannot take focus, so retry on the next frame if
+        // the style change has not been applied yet.
+        if (closeBtn) {
+            closeBtn.focus();
+            if (document.activeElement !== closeBtn) {
+                requestAnimationFrame(() => closeBtn.focus());
+            }
+        }
     }
 
     function closeLightbox() {
+        if (!lightbox.classList.contains('active')) return;
         lightbox.classList.remove('active');
-        document.body.style.overflow = '';
+        scrollLock.unlock();
+        if (lastFocused && document.contains(lastFocused)) {
+            lastFocused.focus();
+        }
+        lastFocused = null;
+    }
+
+    // Keep Tab cycling inside the dialog while it is open.
+    function trapFocus(e) {
+        if (e.key !== 'Tab' || !lightbox.classList.contains('active')) return;
+        const focusable = [closeBtn, prevBtn, nextBtn].filter(Boolean);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        } else if (!focusable.includes(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+        }
     }
 
     function showPrev() {
@@ -373,6 +451,7 @@ function initGallery() {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showPrev();
         if (e.key === 'ArrowRight') showNext();
+        trapFocus(e);
     });
 
     // Gallery expand/collapse toggle
@@ -504,6 +583,32 @@ function initAnimatedCounter() {
     }, { threshold: 0.5 });
 
     observer.observe(counter);
+}
+
+/* =====================================================
+   PAUSE OFF-SCREEN ANIMATIONS
+   -----------------------------------------------------
+   Five animations on this page loop forever (sponsor marquee, hero gradient
+   shift, footer runner, scroll arrow, countdown pulse). Left alone they keep
+   compositing even when scrolled far out of view, which costs battery on
+   phones. Pause them whenever they leave the viewport.
+   ===================================================== */
+function initAnimationPausing() {
+    // Reduced-motion users already have these animations disabled in CSS.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const targets = document.querySelectorAll(
+        '.marquee-content, .hero-overlay, .footer-runner, .scroll-indicator, .countdown-item:last-child .countdown-number'
+    );
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            entry.target.classList.toggle('anim-paused', !entry.isIntersecting);
+        });
+    }, { rootMargin: '150px' });
+
+    targets.forEach(target => observer.observe(target));
 }
 
 /* =====================================================
