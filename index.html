@@ -85,6 +85,44 @@
       }
     }
     </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://dromtrasnachallenge.com/#organization",
+          "name": "Dromtrasna Challenge",
+          "url": "https://dromtrasnachallenge.com/",
+          "email": "dromtrasnachallenge@gmail.com",
+          "logo": "https://dromtrasnachallenge.com/icon-512.png",
+          "description": "Volunteer-run annual charity run in Abbeyfeale, Co. Limerick, raising funds for Milford Care Centre.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Dromtrasna",
+            "addressLocality": "Abbeyfeale",
+            "addressRegion": "Co. Limerick",
+            "postalCode": "V94 W5RC",
+            "addressCountry": "IE"
+          },
+          "sameAs": [
+            "https://facebook.com/DromtrasnaChallenge",
+            "https://instagram.com/dromtrasnachallenge",
+            "https://www.tiktok.com/@dromtrasnachallenge"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://dromtrasnachallenge.com/#website",
+          "url": "https://dromtrasnachallenge.com/",
+          "name": "Dromtrasna Challenge",
+          "inLanguage": "en-IE",
+          "publisher": { "@id": "https://dromtrasnachallenge.com/#organization" }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -113,7 +151,7 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#events" class="dropdown-link">Details</a></li>
+                        <li><a href="#events" class="dropdown-link">Events</a></li>
                         <li><a href="#medal" class="dropdown-link">Medal</a></li>
                         <li><a href="#route" class="dropdown-link">Route</a></li>
                         <li><a href="#results" class="dropdown-link">2025 Results</a></li>
@@ -354,6 +392,10 @@
         <!-- Impact Section -->
         <section class="section impact" id="impact">
             <div class="container">
+                <!-- The visible "11 Years - One Community" line is styled type, not a heading.
+                     This sr-only h2 gives the section a real heading for screen readers and
+                     search engines without changing the layout. -->
+                <h2 class="sr-only">Our Impact</h2>
                 <div class="impact-header reveal">
                     <span class="impact-years">11 Years</span>
                     <span class="impact-divider">&bull;</span>
@@ -790,7 +832,7 @@
         <!-- FAQ Section -->
         <section class="section faq" id="faq">
             <div class="container">
-                <h2 class="section-title reveal">FAQ'S</h2>
+                <h2 class="section-title reveal">FAQs</h2>
 
                 <div class="faq-list">
                     <div class="faq-item reveal">
