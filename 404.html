@@ -3,21 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
-<title>Page not found | Dromtrasna Challenge</title>
+<!-- Cloudflare Pages serves this file for any path that does not match a real
+     file, so it only ever runs for genuinely unknown URLs (old Wix links).
+     The instant meta refresh sends those visitors to the homepage.
+
+     This is deliberately NOT done with a `/*  /  301` rule in _redirects:
+     on Cloudflare Pages that rule also matches `/` and every asset path,
+     redirecting the whole site to itself in an infinite loop. It took the
+     site down once. Do not reintroduce it. -->
+<meta http-equiv="refresh" content="0; url=/">
+<link rel="canonical" href="https://dromtrasnachallenge.com/">
+<meta name="robots" content="noindex, follow">
+<title>Dromtrasna Challenge</title>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<main id="main" class="section">
-  <div class="container" >
-    <h2 class="section-title visible">page not found</h2>
-    <p class="section-subtitle">Sorry - that page has moved. Everything now lives on our main page.</p>
-    <div class="results-cta">
-      <a href="/" class="btn btn-primary btn-large">Go to the Dromtrasna Challenge home page</a>
-    </div>
-  </div>
-</main>
+<p>Taking you to the Dromtrasna Challenge home page&hellip;</p>
+<p><a href="/">Continue to dromtrasnachallenge.com</a></p>
 </body>
 </html>
