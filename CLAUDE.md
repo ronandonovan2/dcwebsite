@@ -65,8 +65,8 @@ grep -n "\.faq-answer" css/styles.css  # -> the FAQ styles, one line
 ├── index.html                  # Whole site, one page, 13 sections
 ├── css/styles.css              # All styling (minified, one rule per line)
 ├── js/main.js                  # All behaviour, one function per feature
+├── 404.html                    # Served by Cloudflare for unmatched paths
 ├── _headers                    # Cloudflare: CSP, security headers, caching
-├── _redirects                  # Cloudflare: catch-all for old Wix URLs
 ├── robots.txt / sitemap.xml    # SEO
 ├── favicon.svg / favicon.ico / apple-touch-icon.png / icon-{192,512}.png
 ├── site.webmanifest
@@ -125,22 +125,30 @@ python3 -c "from PIL import Image; im=Image.open('images/gallery/gallery-33.jpg'
 **5. Gallery tiles are `<button>`, not `<div>`.**
 That is what makes 32 photos reachable by keyboard. Don't convert them back.
 
-**6. `_redirects` sends every unmatched URL to `/`.**
-Correct for a one-page site replacing the old Wix site. **If you ever add a real sub-page, update `_redirects` first** or the new page will be redirected away.
+**6. Never add a `_redirects` catch-all like `/*  /  301`.**
+This took the site down once. Netlify refuses to redirect a path to itself; **Cloudflare Pages does not** — `/` matches `/*`, redirects to `/`, and loops forever, taking every URL with it. Unmatched paths are handled by `404.html`, which Cloudflare Pages serves automatically. Leave it that way.
 
-**7. Cache headers assume CSS/JS filenames are not content-hashed.**
+**7. Bump `?v=` when you edit CSS or JS.**
+Every asset URL carries `?v=20260726`. The query string is part of Cloudflare's cache key, so **editing `css/styles.css` or `js/main.js` without bumping the version means returning visitors keep the old file** (Cloudflare's browser TTL is 4 hours, and it overrides the shorter `max-age` in `_headers`). Bump it everywhere at once:
+```bash
+OLD=20260726; NEW=$(date +%Y%m%d)
+sed -i '' "s/?v=$OLD/?v=$NEW/g" index.html css/styles.css js/main.js
+```
+This is also the escape hatch if the CDN ever serves something stale — a new version string is a fresh cache key and needs no dashboard access.
+
+**8. Cache headers assume CSS/JS filenames are not content-hashed.**
 `/images/*` and `/fonts/*` are cached for a year as immutable; `/css/*` and `/js/*` deliberately are not. If you ever start hashing filenames, revisit `_headers`.
 
-**8. Commit new images.**
+**9. Commit new images.**
 An image referenced in the HTML but left untracked deploys as a broken image — Cloudflare builds from git, not from your disk. After adding images:
 ```bash
 git status --short          # nothing referenced should be untracked
 ```
 
-**9. Body text must stay at or above 4.5:1 contrast.**
+**10. Body text must stay at or above 4.5:1 contrast.**
 `--color-gray-600` is `#697079`, chosen because it clears WCAG AA on **both** white and the `#F8F9FA` section backgrounds. The previous `#868E96` failed at 3.3:1. Don't lighten it.
 
-**10. Don't use `transition: all` on anything that toggles `visibility`.**
+**11. Don't use `transition: all` on anything that toggles `visibility`.**
 CSS transitions flip discrete properties like `visibility` at the *midpoint*, so the element stays unfocusable for half the duration. This broke lightbox focus once already — see the comment on the `.lightbox` rule.
 
 ---
