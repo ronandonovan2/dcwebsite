@@ -95,7 +95,9 @@ results, register/donate CTAs, sponsors, FAQ, contact, footer.
 scroll offset).
 
 **CSS** — design tokens in `:root` (colours, `--space-*`, `--radius-*`,
-`--shadow-*`, `--transition-*`). Breakpoints: 480, 600, 640, 700, 768, 900, 1024px.
+`--shadow-*`, `--transition-*`). Breakpoints: 400, 480, 600, 640, 700, 768, 900,
+1024, 1100px. Layout breakpoints otherwise follow the nav at 769px; the route
+section is the one deliberate exception (see item 16).
 
 ---
 
@@ -183,10 +185,20 @@ That is what makes 32 photos reachable by keyboard. Don't convert them back.
 The map in the route section is hand-authored `<svg>`, not an image. Its
 `viewBox="85 20 655 880"` is in the pixel coordinates of `images/route-map.jpg`,
 which is now **unreferenced but deliberately kept** — it is how you find the
-coordinate for anything you want to move. Two traps: the SVG must contain **no
+coordinate for anything you want to move. Label positions and `rotate()` angles are
+measured off it too, not just the `d` data. Three traps: the SVG must contain **no
 `style=` attributes** (blocked by `style-src 'self'`, and `tools/check.sh` fails on
-them — use the `.rm-*` classes instead), and a route's line, markers and button are
-three separate elements tied together only by matching `data-route`. Recipe in
+them — use the `.rm-*` classes instead); a route's line, markers and button are
+three separate elements tied together only by matching `data-route`; and the group
+order is load-bearing —
+
+```
+rm-road > [rm-routes-base] > rm-routes > rm-place/rm-sub/rm-lane > rm-markers > rm-water > start
+```
+
+Labels sit **after** the routes so a 5px line can't bury a place name, and carry a
+white knockout halo (`paint-order:stroke`) for where one crosses anyway. Putting
+the label groups back above `.rm-routes` silently undoes both. Recipe in
 `MAINTENANCE.md` → "Editing the route map".
 
 **14. The unselected routes are hidden by `stroke-dashoffset`, not by opacity.**
@@ -204,6 +216,18 @@ They pick what the single map highlights; they don't each reveal their own panel
 per-route text, switch the roles back deliberately rather than half-way. The
 `#route-status` live region is what tells a screen reader the map changed, since
 the SVG is `role="img"`.
+
+**16. The route section splits into two columns at 1100px, not 769px.**
+Every other section follows the nav's 769px boundary. The route map can't: it is a
+fixed 655×880 drawing carrying ~15 labels, so its legibility is set by how many CSS
+pixels wide it *renders*, not by how much room the section has. Splitting at 769
+handed the map column 320px — scale 0.49, the smallest the map rendered anywhere on
+the site, narrower than on a 360px phone — and dropped its labels to 5–9px. For the
+same reason the map's type is sized in four steps keyed to rendered width rather
+than viewport width, and those steps **drop** labels as well as grow type
+(`.rm-minor` at ≤480, all of `.rm-lane` at ≤400). The table is in `css/styles.css`
+above the steps. If you change either breakpoint, re-check the widths listed in
+`MAINTENANCE.md` → "Editing the route map".
 
 ---
 

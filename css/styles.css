@@ -1,6 +1,6 @@
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 800;font-display:swap;src:url('../fonts/montserrat-variable-latin.woff2?v=20260730')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Permanent Marker';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/permanent-marker-400-latin.woff2?v=20260730')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Plane Crash';src:url('../fonts/planecrash-latin.woff2?v=20260730')format('woff2');font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 800;font-display:swap;src:url('../fonts/montserrat-variable-latin.woff2?v=20260731')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Permanent Marker';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/permanent-marker-400-latin.woff2?v=20260731')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plane Crash';src:url('../fonts/planecrash-latin.woff2?v=20260731')format('woff2');font-weight:normal;font-style:normal;font-display:swap}
 :root{--color-primary:#1A237E;--color-primary-light:#283593;--color-primary-dark:#0D1642;--color-secondary:#E53935;--color-secondary-light:#EF5350;--color-secondary-dark:#C62828;--color-accent:#FFC107;--color-accent-light:#FFD54F;--color-dark:#1A237E;--color-dark-light:#283593;--gradient-atmospheric:radial-gradient(circle at center,#283593,#1A237E);--gradient-energy:linear-gradient(135deg,#4A148C,#E53935);--color-light:#F8F9FA;--color-white:#FFFFFF;--color-gray-200:#E9ECEF;--color-gray-400:#CED4DA;--color-gray-500:#ADB5BD;--color-gray-600:#697079;--color-gray-700:#495057;--font-display:'Plane Crash','Impact','Arial Black',sans-serif;--font-heading:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;--space-xs:0.25rem;--space-sm:0.5rem;--space-md:1rem;--space-lg:1.5rem;--space-xl:2rem;--space-2xl:3rem;--space-3xl:4rem;--space-4xl:6rem;--radius-sm:4px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;--radius-full:9999px;--shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow-md:0 4px 6px rgba(0,0,0,0.1);--shadow-lg:0 10px 15px rgba(0,0,0,0.1);--shadow-xl:0 20px 25px rgba(0,0,0,0.15);--transition-fast:150ms ease;--transition-base:300ms ease;--transition-slow:500ms ease;--nav-height:95px;--container-max:1200px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:var(--nav-height);overflow-x:hidden;scrollbar-gutter:stable}
@@ -114,10 +114,10 @@ p{margin-bottom:var(--space-md)}
    the first scroll after load snapped the hero back to scale(1.1). Don't merge
    them, and don't put a transition on .hero-bg-parallax. */
 .hero-bg-parallax{position:absolute;inset:0;will-change:transform}
-.hero-bg{position:absolute;inset:0;background:url('../images/hero.jpg?v=20260730')center/cover no-repeat;transform:scale(1.1);transition:transform 10s ease-out}
+.hero-bg{position:absolute;inset:0;background:url('../images/hero.jpg?v=20260731')center/cover no-repeat;transform:scale(1.1);transition:transform 10s ease-out}
 /* Phones get a 900px variant (136KB vs 395KB). The matching preload hints in
    index.html carry the same breakpoint - keep the two in sync. */
-@media (max-width:768px){.hero-bg{background-image:url('../images/hero-mobile.jpg?v=20260730')}
+@media (max-width:768px){.hero-bg{background-image:url('../images/hero-mobile.jpg?v=20260731')}
 }
 .hero.loaded .hero-bg{transform:scale(1)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,35,126,0.82)0%,rgba(136,14,79,0.62)50%,rgba(230,57,70,0.55)100%);background-size:200% 200%;animation:atmosphericShift 12s ease-in-out infinite}
@@ -201,10 +201,15 @@ p{margin-bottom:var(--space-md)}
 .event-details li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;background:var(--color-secondary);border-radius:50%}
 .route{background:var(--color-white)}
 .route-content{display:grid;grid-template-columns:1fr;gap:var(--space-2xl)}
-/* 769px, not 900px: the nav switches to its desktop layout at 769, so anything
-   higher leaves iPad-portrait widths showing a desktop nav above full-width
-   stacked blocks. Keep layout breakpoints on the same boundary as the nav. */
-@media (min-width:769px){.route-content{grid-template-columns:1.2fr 1fr;align-items:start}
+/* Deliberate exception to the "layout breakpoints follow the nav at 769px" rule
+   used everywhere else on the page. The route map is a fixed 655x880 drawing
+   carrying ~15 labels, so its legibility is set by how many CSS pixels wide it
+   renders - not by how much room the section has. Splitting at 769 gave the map
+   column 320px (scale 0.49, the smallest the map renders anywhere on the site,
+   narrower than on a 360px phone) and dropped its labels to 5-9px. Two columns
+   only once the map still gets ~490px. Below that the map takes the full width
+   and the route panels stack under it. */
+@media (min-width:1100px){.route-content{grid-template-columns:1.2fr 1fr;align-items:start}
 }
 .route-map{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--color-white)}
 .route-tabs{display:flex;gap:2px;padding:var(--space-sm);background:var(--color-light);border-bottom:1px solid var(--color-gray-200)}
@@ -221,14 +226,15 @@ p{margin-bottom:var(--space-md)}
 .route-svg{display:block;width:100%;height:auto}
 .rm-road{fill:none;stroke:#C2C7CD;stroke-width:2.5;stroke-linecap:round}
 .rm-place,.rm-sub,.rm-lane{font-family:Helvetica,Arial,sans-serif}
+.rm-place,.rm-sub,.rm-lane,.rm-venue,.rm-start-label{paint-order:stroke;stroke:var(--color-white);stroke-width:3;stroke-linejoin:round}
 .rm-place{fill:var(--color-gray-700);font-size:18px;font-weight:700}
-.rm-sub{fill:var(--color-gray-700);font-size:17px;font-weight:400}
+.rm-sub{fill:var(--color-gray-700);font-size:19px;font-weight:400}
 .rm-lane{fill:var(--color-gray-600);font-size:12px;font-weight:400}
 .rm-rot,.rm-mid{text-anchor:middle}
 .rm-end{text-anchor:end}
 .rm-rot{dominant-baseline:middle}
 .rm-route,.rm-route-base{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
-.rm-route-base{stroke:#C2C7CD}
+.rm-route-base{stroke:#A9AFB7}
 .rm-route[data-route="10k"]{stroke:var(--color-primary)}
 .rm-route[data-route="5k"]{stroke:#4A148C}
 .rm-route[data-route="4k"]{stroke:var(--color-secondary)}
@@ -236,12 +242,12 @@ p{margin-bottom:var(--space-md)}
 .rm-markers[data-route="5k"]{color:#4A148C}
 .rm-markers[data-route="4k"]{color:var(--color-secondary-dark)}
 .rm-markers circle{fill:currentColor}
-.rm-km text{fill:var(--color-white);font-family:var(--font-heading);font-size:11px;font-weight:700;text-anchor:middle}
+.rm-km text{fill:var(--color-white);font-family:var(--font-heading);font-size:11px;font-weight:700;text-anchor:middle;dominant-baseline:central}
 .rm-km-sm{font-size:10px}
 .rm-water circle{fill:#00838F}
 .rm-start{fill:var(--color-accent);stroke:var(--color-primary);stroke-width:2.5}
 .rm-start-halo{fill:var(--color-white)}
-.rm-venue{fill:var(--color-primary);font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;text-anchor:middle}
+.rm-venue{fill:var(--color-primary);font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:700;text-anchor:middle}
 .rm-start-label{fill:var(--color-primary);font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700}
 .rm-start-label--l{text-anchor:end}
 .rm-start-label--r{text-anchor:start}
@@ -254,18 +260,80 @@ p{margin-bottom:var(--space-md)}
 .route-legend-key--start{background:var(--color-accent);border:2px solid var(--color-primary)}
 .route-legend-key--water{background:#00838F}
 .route-legend-key--km{background:var(--color-gray-500)}
-.route-legend-key--road{width:16px;height:4px;border-radius:2px;background:#C2C7CD}
+.route-legend-key--other{width:16px;height:5px;border-radius:2px;background:#A9AFB7}
+.route-legend-key--road{width:16px;height:2px;border-radius:1px;background:#C2C7CD}
 .route-kids{margin:0;padding:var(--space-md) var(--space-lg);background:var(--color-light);color:var(--color-gray-600);font-size:0.85rem;border-top:1px solid var(--color-gray-200)}
-@media (max-width:640px){.route-map-figure{padding:var(--space-xs)}
-.rm-lane{font-size:17px}
-.rm-place{font-size:20px}
+/* Map type is sized by how wide the SVG actually renders, not by how wide the
+   window is - the two are only loosely related, because the section is one
+   column on a phone and two on a wide desktop. Steps below are keyed to the
+   rendered scale (svg width / 655):
+     base            scale 0.81-1.51   single column, 641-1099px
+     step A          scale 0.65-0.89   phones <=640px AND the >=1100px two-column
+     step B          scale 0.61-0.72   <=480px, once the map goes edge-to-edge
+     step C          scale 0.52-0.61   <=400px
+   Each step drops another tier of labels rather than only inflating what is
+   left: past step A there is no size at which every label both reads and fits.
+   Two things that bite: keep .rm-start-halo ~4 units above .rm-start in every
+   step or the white separation ring vanishes under the dot exactly where the
+   three routes converge; and grow the halo stroke-width with the type, or the
+   knockout stops covering the line behind it. */
+@media (max-width:768px),(min-width:1100px){.rm-place,.rm-sub,.rm-lane,.rm-venue,.rm-start-label{stroke-width:4}
+.rm-lane{font-size:14px}
+.rm-place{font-size:19px}
 .rm-sub{font-size:20px}
-.rm-km circle{r:14}
-.rm-km text{font-size:15px}
+.rm-km circle{r:13}
+.rm-markers[data-route="5k"] .rm-km circle{r:17}
+.rm-km text{font-size:14px}
+.rm-km-sm{font-size:11px}
+.rm-start-label{font-size:15px}
+/* Up and right off its measured centre. At 12px the block is too wide to stay
+   there: centred on 553 it crosses the 4K route on its left (10px is the widest
+   that clears), and moving it right alone drops SCHOOL alongside FINISH so the
+   two read as one label. Up-and-right clears both, and lands it where the
+   printed map puts its own START/FINISH heading. */
+.rm-venue{font-size:12px;transform:translate(16px,-16px)}
+.rm-start{r:12}
+.rm-start-halo{r:16}
+.rm-road{stroke-width:3}
+.rm-route,.rm-route-base{stroke-width:6}
+}
+@media (max-width:640px){.route-map-figure{padding:var(--space-xs)}
+}
+/* The venue block is the smallest type on the map and the school is already
+   marked by the start dot, START/FINISH and the legend. Below this it renders
+   under ~9px and crowds FINISH, so it goes rather than shrinks. */
+@media (max-width:600px){.rm-venue{display:none}
+}
+/* Edge to edge: cancelling the container's side padding is worth ~48px, which on
+   a 360px phone is a sixth more map for nothing. */
+@media (max-width:480px){.route-map{margin-left:calc(-1 * var(--space-lg));margin-right:calc(-1 * var(--space-lg));border-radius:0}
+.rm-minor{display:none}
+.rm-place,.rm-sub,.rm-lane,.rm-start-label{stroke-width:5}
+/* Meenkilly/School only. Water stations paint above the labels, and at this size
+   the centred block reaches back over the dot at 306,766. */
+.rm-mid{transform:translateX(14px)}
+.rm-lane{font-size:16px}
+.rm-sub{font-size:22px}
+.rm-km circle{r:15}
+.rm-markers[data-route="5k"] .rm-km circle{r:20}
+.rm-km text{font-size:16px}
 .rm-km-sm{font-size:12px}
 .rm-start-label{font-size:17px}
-.rm-venue{font-size:14px}
 .rm-start{r:13}
+.rm-start-halo{r:17}
+}
+@media (max-width:400px){.rm-lane{display:none}
+.rm-place,.rm-sub,.rm-start-label{stroke-width:6}
+.rm-sub{font-size:24px}
+.rm-km circle{r:18}
+.rm-markers[data-route="5k"] .rm-km circle{r:23}
+.rm-km text{font-size:19px}
+.rm-km-sm{font-size:15px}
+.rm-start-label{font-size:19px}
+.rm-start{r:15}
+.rm-start-halo{r:20}
+.rm-road{stroke-width:4}
+.rm-route,.rm-route-base{stroke-width:8}
 }
 .route-info{display:flex;flex-direction:column;gap:var(--space-lg)}
 .route-detail{display:flex;gap:var(--space-md);padding:var(--space-lg);background:var(--color-white);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);transition:box-shadow var(--transition-base),transform var(--transition-base)}

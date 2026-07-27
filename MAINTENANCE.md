@@ -259,6 +259,46 @@ straight into the markup with no conversion.
 | Start/finish | `.rm-start`, plus the two `.rm-start-label` halves that straddle the road |
 | A place or road name | the `<text>` in `.rm-place` (towns) or `.rm-lane` (roads) |
 
+**Label positions are measured too.** Every `x`/`y`, and every `rotate()` angle,
+is the ink centroid and principal axis of that label on `images/route-map.jpg` —
+the same provenance as the `d` data. Re-measure rather than nudging by eye.
+
+**Paint order is load-bearing** and the groups must stay in this order:
+
+```
+rm-road  >  [rm-routes-base]  >  rm-routes  >  rm-place/rm-sub/rm-lane  >  rm-markers  >  rm-water  >  start
+```
+
+`rm-routes-base` is the grey layer `initRouteExplorer` inserts at runtime, always
+immediately before `.rm-routes`. Labels sit **after** the routes so a 5px line
+never buries a place name, and they carry a white knockout halo
+(`paint-order:stroke` on `.rm-place`) so they stay readable where a line does
+cross. Moving the label groups back above `.rm-routes` silently undoes both.
+
+**Four deliberate departures from the printed map.** Each exists because the SVG
+sets its type larger than the print's, so labels that clear each other on paper
+do not here:
+
+- The **2K badge** at `(360,616)` is an addition — the print has the `.rm-dot`
+  at `(397,624)` but no bubble. It completes the 1K–9K set. Don't "correct" it out.
+- The **4K Walk's 1K badge** sits at `(404,272)`, inside the loop, not at the
+  print's `(356,275)`. There it painted over the tail of the BUSHY ROAD label at
+  every size. Its `.rm-dot` at `(373,276)` is still the measured 1km point.
+- **`.rm-venue`** keeps the measured `(553, 280/296)` at base size only. The
+  larger steps shift it up and right (see the comment on the rule) and it is
+  hidden below 600px.
+- **`.rm-mid`** (Meenkilly/School) shifts right at ≤480px, where the block would
+  otherwise reach back over the water station dot at `(306,766)`.
+
+**Two-line labels use `dy` in `em`, not a second baseline.** `.rm-mid` and
+`.rm-venue` are one `<text>` with a `<tspan dy="1.17em">`/`dy="1.6em"`. A second
+`y` in user units would keep a fixed gap while the mobile steps scale font-size,
+and the lines would collide.
+
+**Badge text is centred by `dominant-baseline:central`**, so `<text>` shares the
+`<circle>`'s `cy`. Don't reintroduce a hardcoded `cy + 6` baseline offset — it
+only centres at one font-size.
+
 **The `d` data is measured, not drawn by hand.** Each route was traced by
 scanning `images/route-map.jpg` row by row (or column by column) and taking the
 centre of the coloured run, so the SVG sits on the printed line to well under a
@@ -292,13 +332,21 @@ Three things that will bite:
    into a `.rm-route-base` layer at runtime so the whole road network stays
    visible in grey behind the highlighted route. That is why each path's `d`
    lives in exactly one place.
-3. **Check text collisions after moving anything.** Labels are positioned by
-   hand, so a nudged route can end up underneath a place name. Render each tab
-   and look:
+3. **Check text collisions after moving anything**, at both ends of the size
+   range and with each tab selected — the grey base layer changes which lines
+   cross which labels. Render and look:
 
    ```bash
    python3 -m http.server 8000    # then open the route section in a browser
    ```
+
+   The map's type is sized in four steps keyed to how wide the SVG actually
+   renders, which is **not** a simple function of the window — the section is one
+   column on a phone and two from 1100px up. `css/styles.css` carries the table.
+   Widths worth re-checking after any label change: 320, 414, 480, 481, 640, 641,
+   768, 900, 1099, 1100, 1440. The steps drop labels as well as grow type
+   (`.rm-minor` goes at ≤480, all of `.rm-lane` at ≤400); below about 400px there
+   is no size at which every label both reads and fits.
 
 The 2K Kids Run is deliberately **not** on the map — the printed map never showed
 it, and the `.route-kids` note under the panels says so. If a route is ever agreed,
