@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initScrollAnimations,
         initStaggeredGrids,
         initFAQ,
+        initRouteExplorer,
         initGallery,
         initSponsorMarquee,
         initAnimatedCounter,
@@ -188,8 +189,18 @@ function initCountdown() {
     const hoursEl = document.getElementById('countdown-hours');
     const minutesEl = document.getElementById('countdown-minutes');
     const secondsEl = document.getElementById('countdown-seconds');
+    const countdownEl = document.getElementById('countdown');
+    const messageEl = document.getElementById('countdown-message');
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // How long the hero keeps saying "today" before it switches to thanks. Both
+    // this and the year are DERIVED from eventDate on purpose:
+    // tools/set-event-date.py rewrites only the Date literal above, and a second
+    // hardcoded date here would silently drift a year out of step.
+    const EVENT_RUNS_FOR = 8 * 60 * 60 * 1000;
+    const eventYear = new Date(eventDate).getFullYear();
+    let timerId = null;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -209,15 +220,27 @@ function initCountdown() {
         }
     }
 
+    // Swap the four digit tiles for a single line of copy. Without this the
+    // hero sat on 0/00/00/00 from race morning onward, which reads as broken.
+    function showMessage(text) {
+        if (timerId !== null) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+        if (countdownEl) countdownEl.hidden = true;
+        if (!messageEl) return;
+        messageEl.textContent = text;
+        messageEl.hidden = false;
+    }
+
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = eventDate - now;
 
         if (distance < 0) {
-            updateDigit(daysEl, '0');
-            updateDigit(hoursEl, '00');
-            updateDigit(minutesEl, '00');
-            updateDigit(secondsEl, '00');
+            showMessage(distance > -EVENT_RUNS_FOR
+                ? "Today's the day - see you at Dromtrasna!"
+                : `Thank you to everyone who took that step in ${eventYear}.`);
             return;
         }
 
@@ -235,8 +258,11 @@ function initCountdown() {
     // Initial update
     updateCountdown();
 
-    // Update every second
-    setInterval(updateCountdown, 1000);
+    // Update every second. showMessage() clears this once the event has passed,
+    // so the finished state does not keep ticking for nothing.
+    if (eventDate - Date.now() > 0) {
+        timerId = setInterval(updateCountdown, 1000);
+    }
 }
 
 /* =====================================================
@@ -355,6 +381,166 @@ function initFAQ() {
 }
 
 /* =====================================================
+   ROUTE EXPLORER
+   ===================================================== */
+function initRouteExplorer() {
+    const svg = document.querySelector('.route-svg');
+    const tabs = Array.from(document.querySelectorAll('.route-tab'));
+    if (!svg || tabs.length === 0) return;
+
+    const routes = Array.from(svg.querySelectorAll('.rm-route'));
+    const markerGroups = Array.from(svg.querySelectorAll('.rm-markers'));
+    const statusEl = document.getElementById('route-status');
+    const routesGroup = svg.querySelector('.rm-routes');
+
+    // Lay a grey copy of every route underneath the coloured ones, so the whole
+    // road network stays visible and the selected route paints over its own grey
+    // line rather than appearing out of nowhere. Cloned here rather than written
+    // out in the HTML so each path's `d` exists in exactly one place.
+    if (routesGroup) {
+        const baseGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        baseGroup.setAttribute('class', 'rm-routes-base');
+        baseGroup.setAttribute('aria-hidden', 'true');
+        routes.forEach(path => {
+            const base = path.cloneNode(false);
+            base.setAttribute('class', 'rm-route-base');
+            base.removeAttribute('data-route');
+            baseGroup.appendChild(base);
+        });
+        routesGroup.parentNode.insertBefore(baseGroup, routesGroup);
+    }
+
+    // Until this point every route is drawn plainly, which is what a visitor
+    // without JavaScript keeps. The class is what switches the SVG into
+    // "one route at a time" mode, so the no-JS view is never left blank.
+    svg.classList.add('is-interactive');
+
+    // Dash the paths so the active one can be drawn on. getTotalLength() is
+    // measured once here rather than per click - it forces layout, and the
+    // paths never change.
+    const lengths = new Map();
+    routes.forEach(path => {
+        const len = Math.ceil(path.getTotalLength());
+        lengths.set(path, len);
+        path.setAttribute('stroke-dasharray', len);
+        path.setAttribute('stroke-dashoffset', len);
+    });
+
+    // "Armed" means the map has been scrolled to at least once. Before that the
+    // active route stays wound back so the draw-on is not spent off-screen.
+    let armed = false;
+
+    function draw(path, animate) {
+        const len = lengths.get(path);
+        if (!armed) {
+            path.style.strokeDashoffset = String(len);
+            return;
+        }
+        if (!animate || prefersReducedMotion) {
+            path.style.strokeDashoffset = '0';
+            return;
+        }
+        // Restart from the beginning, then let the CSS transition run. The
+        // reflow read is what makes the browser treat this as two states
+        // rather than collapsing it into no change at all.
+        path.style.strokeDashoffset = String(len);
+        void path.getBoundingClientRect();
+        path.style.strokeDashoffset = '0';
+    }
+
+    function select(route, animate) {
+        tabs.forEach(tab => {
+            const on = tab.dataset.route === route;
+            tab.classList.toggle('is-active', on);
+            tab.setAttribute('aria-checked', String(on));
+            // Roving tabindex: only the selected tab is a tab stop, so Tab
+            // moves past the whole set and the arrow keys move within it.
+            tab.tabIndex = on ? 0 : -1;
+        });
+
+        routes.forEach(path => {
+            const on = path.dataset.route === route;
+            path.classList.toggle('is-active', on);
+            if (on) {
+                draw(path, animate && !prefersReducedMotion);
+            } else {
+                path.style.strokeDashoffset = String(lengths.get(path));
+            }
+        });
+
+        markerGroups.forEach(group => {
+            const on = group.dataset.route === route;
+            group.classList.toggle('is-active', on);
+            if (!on) return;
+            // Markers arrive behind the advancing line rather than all at once.
+            const kms = group.querySelectorAll('.rm-km, .rm-dot circle');
+            kms.forEach((el, i) => {
+                el.style.transitionDelay = (animate && !prefersReducedMotion)
+                    ? `${300 + (i * 1000 / Math.max(kms.length, 1))}ms`
+                    : '0ms';
+            });
+        });
+
+        // The map is role="img", so it cannot tell a screen reader it changed.
+        const chosen = tabs.find(tab => tab.dataset.route === route);
+        if (statusEl && chosen) {
+            statusEl.textContent = `${chosen.textContent.trim().replace(/\s+/g, ' ')} route shown on the map.`;
+        }
+    }
+
+    function arm(animate) {
+        if (armed) return;
+        armed = true;
+        svg.classList.add('is-armed');
+        const active = routes.find(p => p.classList.contains('is-active'));
+        if (active) draw(active, animate);
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            select(tab.dataset.route, true);
+            arm(true);
+        });
+    });
+
+    // Arrow-key navigation within the tablist, per the ARIA tabs pattern.
+    const tablist = document.querySelector('.route-tabs');
+    tablist?.addEventListener('keydown', (e) => {
+        const i = tabs.indexOf(document.activeElement);
+        if (i === -1) return;
+
+        let next = -1;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next === -1) return;
+
+        e.preventDefault();
+        tabs[next].focus();
+        select(tabs[next].dataset.route, true);
+        arm(true);
+    });
+
+    // Settle on the first tab, then let the map draw itself the first time it
+    // actually scrolls into view - the same trigger the fundraising counter uses.
+    select(tabs[0].dataset.route, false);
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        arm(false);
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        obs.disconnect();
+        arm(true);
+    }, { threshold: 0.25 });
+
+    observer.observe(svg);
+}
+
+/* =====================================================
    PHOTO GALLERY & LIGHTBOX
    ===================================================== */
 function initGallery() {
@@ -375,7 +561,7 @@ function initGallery() {
     // Gallery image paths (generate for all 32)
     const images = [];
     for (let i = 1; i <= 32; i++) {
-        images.push(`images/gallery/gallery-${i}.jpg?v=20260729`);
+        images.push(`images/gallery/gallery-${i}.jpg?v=20260730`);
     }
 
     function updateCounter() {
@@ -479,6 +665,38 @@ function initGallery() {
         if (e.key === 'ArrowRight') showNext();
         trapFocus(e);
     });
+
+    // Swipe between photos. The arrow buttons stay for everyone else; this is
+    // just what a phone user expects to work, and most of this site's traffic
+    // is on a phone. Passive listeners: nothing here calls preventDefault, and
+    // saying so up front keeps scrolling off the main thread.
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let swipeCandidate = false;
+
+    lightbox.addEventListener('touchstart', (e) => {
+        // A second finger means a pinch-zoom, not a swipe - leave it alone.
+        swipeCandidate = e.touches.length === 1;
+        if (!swipeCandidate) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        if (!swipeCandidate) return;
+        swipeCandidate = false;
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+        // Ignore short drags, and anything more vertical than horizontal, so
+        // that dragging down to dismiss never skips a photo by accident.
+        if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
+        if (dx < 0) {
+            showNext();
+        } else {
+            showPrev();
+        }
+    }, { passive: true });
 
     // Gallery expand/collapse toggle
     if (toggleBtn && galleryGrid) {

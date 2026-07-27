@@ -239,6 +239,73 @@ grep -n "medal-image-photo\|YOUR .* MEDAL" index.html
 
 ---
 
+## Editing the route map
+
+```bash
+grep -n "rm-route\|rm-km\|rm-water\|rm-start" index.html
+```
+
+The map is a hand-authored inline `<svg>` in the route section, not an image. It
+traces `images/route-map.jpg`, which stays in the repo as the **source of truth for
+the geometry** — the SVG's `viewBox="85 20 655 880"` is in that JPEG's own pixel
+coordinates, so a point read off the image with an image editor can be typed
+straight into the markup with no conversion.
+
+| To change | Edit |
+|---|---|
+| A route's shape | the `d` on the matching `<path class="rm-route" data-route="10k">` |
+| A distance marker | its `<g class="rm-km">` — the `circle` is the label bubble, the `<circle>` in `.rm-dot` is the point on the line |
+| A water station | a `<circle>` in `<g class="rm-water">` |
+| Start/finish | `.rm-start`, plus the two `.rm-start-label` halves that straddle the road |
+| A place or road name | the `<text>` in `.rm-place` (towns) or `.rm-lane` (roads) |
+
+**The `d` data is measured, not drawn by hand.** Each route was traced by
+scanning `images/route-map.jpg` row by row (or column by column) and taking the
+centre of the coloured run, so the SVG sits on the printed line to well under a
+pixel. If you redraw a route by eye you will lose that. To check any change,
+sample the path in the browser and test how much of it still lands on the
+original's ink:
+
+```js
+// in the console, on the route section
+const p = document.querySelector('.rm-route[data-route="10k"]');
+const L = p.getTotalLength();
+[...Array(50)].map((_, i) => p.getPointAtLength(L * i / 49));
+```
+
+**Point order sets the animation direction.** The draw-on follows the `d` from
+first point to last, so a route written backwards animates backwards. The km
+badges tell you which way round it goes: on the 4K Walk, 1K sits on Bushy Road
+(west) and 3K on the eastern leg, so walkers leave the school heading **west**.
+The 10K and 5K both leave southbound down Bog Road.
+
+Three things that will bite:
+
+1. **No `style="…"` attributes.** `style-src 'self'` blocks them and
+   `tools/check.sh` fails on them. Use presentation attributes (`stroke`, `fill`)
+   or, better, the `.rm-*` classes in `css/styles.css`.
+2. **A route, its markers and its button are separate elements** keyed by the
+   same `data-route`. Adding a route means adding a `<path class="rm-route">`, a
+   `<g class="rm-markers">` and a `<button class="route-tab">`, all carrying the
+   same `data-route` — `initRouteExplorer` pairs them up by that attribute alone.
+   You do **not** add a grey copy: `initRouteExplorer` clones every `.rm-route`
+   into a `.rm-route-base` layer at runtime so the whole road network stays
+   visible in grey behind the highlighted route. That is why each path's `d`
+   lives in exactly one place.
+3. **Check text collisions after moving anything.** Labels are positioned by
+   hand, so a nudged route can end up underneath a place name. Render each tab
+   and look:
+
+   ```bash
+   python3 -m http.server 8000    # then open the route section in a browser
+   ```
+
+The 2K Kids Run is deliberately **not** on the map — the printed map never showed
+it, and the `.route-kids` note under the panels says so. If a route is ever agreed,
+add it as a fourth tab rather than quietly drawing a guess.
+
+---
+
 ## Contact details and social links
 
 ```bash

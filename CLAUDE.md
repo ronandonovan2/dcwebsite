@@ -88,10 +88,11 @@ results, register/donate CTAs, sponsors, FAQ, contact, footer.
 
 **`js/main.js`** — one function per feature, all called from `DOMContentLoaded`:
 `initNavigation`, `initCountdown`, `initScrollAnimations`, `initStaggeredGrids`,
-`initFAQ`, `initGallery`, `initSponsorMarquee`, `initAnimatedCounter`,
-`initParallax`, `initAnimationPausing`. Plus a module-level `scrollLock` used by
-both the mobile nav and the lightbox (iOS Safari ignores `body{overflow:hidden}`,
-so it pins the body with `position:fixed` and restores the scroll offset).
+`initFAQ`, `initRouteExplorer`, `initGallery`, `initSponsorMarquee`,
+`initAnimatedCounter`, `initParallax`, `initAnimationPausing`. Plus a module-level
+`scrollLock` used by both the mobile nav and the lightbox (iOS Safari ignores
+`body{overflow:hidden}`, so it pins the body with `position:fixed` and restores the
+scroll offset).
 
 **CSS** — design tokens in `:root` (colours, `--space-*`, `--radius-*`,
 `--shadow-*`, `--transition-*`). Breakpoints: 480, 600, 640, 700, 768, 900, 1024px.
@@ -178,6 +179,32 @@ already — see the comment on the `.lightbox` rule.
 **12. Gallery tiles are `<button>`, not `<div>`.**
 That is what makes 32 photos reachable by keyboard. Don't convert them back.
 
+**13. The route map is inline SVG, and the JPEG it was traced from is the spec.**
+The map in the route section is hand-authored `<svg>`, not an image. Its
+`viewBox="85 20 655 880"` is in the pixel coordinates of `images/route-map.jpg`,
+which is now **unreferenced but deliberately kept** — it is how you find the
+coordinate for anything you want to move. Two traps: the SVG must contain **no
+`style=` attributes** (blocked by `style-src 'self'`, and `tools/check.sh` fails on
+them — use the `.rm-*` classes instead), and a route's line, markers and button are
+three separate elements tied together only by matching `data-route`. Recipe in
+`MAINTENANCE.md` → "Editing the route map".
+
+**14. The unselected routes are hidden by `stroke-dashoffset`, not by opacity.**
+`initRouteExplorer` clones every `.rm-route` into a grey `.rm-route-base` layer
+underneath, then winds the coloured copies back out of sight. That is what keeps
+the whole road network visible and followable while one route is highlighted —
+dimming the coloured paths instead would take the surrounding roads with it.
+Without JavaScript none of this runs and all three routes simply show in colour,
+which is still readable; `.is-interactive` is what switches the SVG into
+one-route-at-a-time mode, so never make dimming the default.
+
+**15. The route buttons are a `radiogroup`, not a `tablist`.**
+They pick what the single map highlights; they don't each reveal their own panel.
+`role="tab"` without a matching `tabpanel` is broken ARIA, so if you re-add
+per-route text, switch the roles back deliberately rather than half-way. The
+`#route-status` live region is what tells a screen reader the map changed, since
+the SVG is `role="img"`.
+
 ---
 
 ## Key data points
@@ -198,3 +225,9 @@ That is what makes 32 photos reachable by keyboard. Don't convert them back.
   are unreferenced, as are the `.records-banner` / `.record*` CSS rules — leftovers
   from when St. Ita's Community Hospital was a co-beneficiary. **Deliberately kept**
   for now; St. Ita's is still named in the impact section's `.highlight-text`.
+- `images/route-map.jpg` is unreferenced since the route section became inline SVG,
+  but is **deliberately kept** — it is the coordinate reference the SVG was traced
+  from. See "Don't break these" item 13.
+- **No elevation profile.** The route section still describes elevation in prose
+  only. A real profile needs GPX for the three courses, which doesn't exist yet;
+  don't synthesise one, runners train on these numbers.

@@ -9,10 +9,10 @@
     <link rel="canonical" href="https://dromtrasnachallenge.com/">
 
     <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico?v=20260729" sizes="32x32">
-    <link rel="icon" href="/favicon.svg?v=20260729" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260729">
-    <link rel="manifest" href="/site.webmanifest?v=20260729">
+    <link rel="icon" href="/favicon.ico?v=20260730" sizes="32x32">
+    <link rel="icon" href="/favicon.svg?v=20260730" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260730">
+    <link rel="manifest" href="/site.webmanifest?v=20260730">
 
     <!-- Social sharing (Facebook, WhatsApp, Messenger) -->
     <meta property="og:type" content="website">
@@ -38,19 +38,19 @@
          and allows the strict CSP in /_headers.
          Only the two above-the-fold fonts are preloaded; Plane Crash is used
          further down the page and loads normally via font-display:swap. -->
-    <link rel="preload" href="images/hero.jpg?v=20260729" as="image" fetchpriority="high" media="(min-width: 769px)">
-    <link rel="preload" href="images/hero-mobile.jpg?v=20260729" as="image" fetchpriority="high" media="(max-width: 768px)">
-    <link rel="preload" href="fonts/montserrat-variable-latin.woff2?v=20260729" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/permanent-marker-400-latin.woff2?v=20260729" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="images/hero.jpg?v=20260730" as="image" fetchpriority="high" media="(min-width: 769px)">
+    <link rel="preload" href="images/hero-mobile.jpg?v=20260730" as="image" fetchpriority="high" media="(max-width: 768px)">
+    <link rel="preload" href="fonts/montserrat-variable-latin.woff2?v=20260730" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/permanent-marker-400-latin.woff2?v=20260730" as="font" type="font/woff2" crossorigin>
 
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="css/styles.css?v=20260729">
+    <link rel="stylesheet" href="css/styles.css?v=20260730">
 
     <!-- Most of the page is opacity:0 until js/main.js reveals it on scroll, so
          without JS the site is close to blank. This restores it. It has to be a
          separate file rather than an inline <style>: the CSP in /_headers sets
          style-src 'self' with no 'unsafe-inline'. -->
-    <noscript><link rel="stylesheet" href="css/noscript.css?v=20260729"></noscript>
+    <noscript><link rel="stylesheet" href="css/noscript.css?v=20260730"></noscript>
 
     <!-- Structured data: makes the event eligible for Google event rich results.
          ANNUAL: name (year), startDate, endDate and validFrom all change each year.
@@ -142,8 +142,8 @@
     <header class="nav-header" id="nav-header">
         <nav class="nav-container">
             <a href="#hero" class="nav-logo" aria-label="Dromtrasna Challenge, back to top">
-                <img src="images/logo-default.png?v=20260729" alt="" class="nav-logo-img nav-logo-default" width="400" height="129">
-                <img src="images/logo-scrolled.png?v=20260729" alt="" class="nav-logo-img nav-logo-scrolled" width="656" height="208">
+                <img src="images/logo-default.png?v=20260730" alt="" class="nav-logo-img nav-logo-default" width="400" height="129">
+                <img src="images/logo-scrolled.png?v=20260730" alt="" class="nav-logo-img nav-logo-scrolled" width="656" height="208">
             </a>
 
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
@@ -219,6 +219,10 @@
                     </div>
                 </div>
 
+                <!-- Replaces the countdown on race day and afterwards, so the hero
+                     never sits on a frozen row of zeros. Filled by initCountdown. -->
+                <p class="countdown-message animate-fade-up delay-3" id="countdown-message" hidden></p>
+
                 <div class="hero-buttons animate-fade-up delay-4">
                     <a href="#register" class="btn btn-hero-primary">Register Now</a>
                     <a href="#donate" class="btn btn-hero-secondary">Donate</a>
@@ -250,11 +254,11 @@
                         <div class="beneficiary-cards" data-stagger="0.12">
                             <div class="beneficiary-card beneficiary-card--featured stagger-item">
                                 <div class="beneficiary-card-photo">
-                                    <img src="images/cheque-milford.jpg?v=20260729" alt="Presenting the cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
+                                    <img src="images/cheque-milford.jpg?v=20260730" alt="Presenting the cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
                                 </div>
                                 <div class="beneficiary-card-body">
                                     <div class="beneficiary-logo">
-                                        <img src="images/charity-logos/milford-logo.png?v=20260729" alt="Milford Care Centre Logo" width="400" height="225" loading="lazy" decoding="async">
+                                        <img src="images/charity-logos/milford-logo.png?v=20260730" alt="Milford Care Centre Logo" width="400" height="225" loading="lazy" decoding="async">
                                     </div>
                                     <h4>Milford Care Centre</h4>
                                     <p>Providing specialist palliative care and support to patients and families across the Mid-West region.</p>
@@ -340,7 +344,7 @@
 
                 <div class="medal-content">
                     <div class="medal-image reveal-scale">
-                        <img src="images/medal-2026.jpg?v=20260729" alt="2026 Dromtrasna Challenge finisher medal" class="medal-image-photo" width="999" height="1100" loading="lazy" decoding="async">
+                        <img src="images/medal-2026.jpg?v=20260730" alt="2026 Dromtrasna Challenge finisher medal" class="medal-image-photo" width="999" height="1100" loading="lazy" decoding="async">
                     </div>
                     <div class="medal-info reveal-left delay-1">
                         <h3>Inspired by St. Ita's Well</h3>
@@ -358,8 +362,135 @@
                 <p class="section-subtitle reveal">Experience the beautiful West Limerick countryside</p>
 
                 <div class="route-content">
+                    <!-- Route explorer. The SVG below traces images/route-map.jpg, which
+                         stays in the repo as the source of truth for this geometry - see
+                         MAINTENANCE.md "Editing the route map" before moving anything.
+                         No style= attributes anywhere: style-src 'self' blocks them and
+                         tools/check.sh fails on them. Use presentation attributes and the
+                         .rm-* / .route-* classes in css/styles.css instead. -->
                     <div class="route-map reveal-scale">
-                        <img src="images/route-map.jpg?v=20260729" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image" width="800" height="952" loading="lazy" decoding="async">
+                        <!-- A radiogroup, not a tablist: these pick which route the one
+                             map highlights, they don't each reveal their own panel. -->
+                        <div class="route-tabs" role="radiogroup" aria-label="Choose a route to show on the map">
+                            <button type="button" class="route-tab is-active" role="radio" id="route-tab-10k" aria-checked="true" data-route="10k">
+                                <span class="route-tab-dist">10K</span>
+                                <span class="route-tab-name">Run</span>
+                            </button>
+                            <button type="button" class="route-tab" role="radio" id="route-tab-5k" aria-checked="false" tabindex="-1" data-route="5k">
+                                <span class="route-tab-dist">5K</span>
+                                <span class="route-tab-name">Run</span>
+                            </button>
+                            <button type="button" class="route-tab" role="radio" id="route-tab-4k" aria-checked="false" tabindex="-1" data-route="4k">
+                                <span class="route-tab-dist">4K</span>
+                                <span class="route-tab-name">Walk</span>
+                            </button>
+                        </div>
+
+                        <div class="route-map-figure">
+                            <svg class="route-svg" viewBox="85 20 655 880" role="img" aria-labelledby="route-svg-title" preserveAspectRatio="xMidYMid meet">
+                                <title id="route-svg-title">Map of the Dromtrasna Challenge routes. All start and finish at Dromtrasna National School. The 10K runs south down Bog Road and loops through Grogeen and Meenkilly. The 5K runs south down Bog Road then west on the Grogeen road, turning at 2.5 kilometres. The 4K Walk loops north through Dromtrasna Collins and Banard.</title>
+
+                                <g class="rm-road">
+                                    <path d="M368 122C362 112 361 100 363 90C365 82 366 78 367 74"/>
+                                    <path d="M370 291C330 298 285 306 248 314"/>
+                                    <path d="M534 200C548 194 562 184 572 177"/>
+                                    <path d="M474 343C540 330 610 310 678 295"/>
+                                    <path d="M475 356C477 359 483 368 486 373C489 378 492 380 495 384C498 388 503 391 506 394C509 397 511 399 512 400"/>
+                                    <path d="M250 735C232 718 216 703 200 688"/>
+                                    <path d="M381 853C398 862 415 871 433 881"/>
+                                    <path d="M608 655C607 658 605 668 604 675C603 682 602 688 600 695C598 702 596 707 594 715C592 723 589 739 588 744"/>
+                                </g>
+
+                                <!-- Label positions, sizes and angles are measured off
+                                     images/route-map.jpg so this reads like the printed
+                                     map: baselines and left edges for the horizontal
+                                     labels, centroid + principal-axis angle for the
+                                     rotated ones. Don't retype them by eye. -->
+                                <g class="rm-place">
+                                    <text x="423" y="125">BANARD</text>
+                                    <text x="102" y="265">DROMTRASNA COLLINS</text>
+                                    <text x="514" y="374">DROMTRASNA NORTH</text>
+                                </g>
+                                <g class="rm-sub">
+                                    <text x="201" y="590">Grogeen</text>
+                                </g>
+                                <g class="rm-lane">
+                                    <text x="242" y="315">Bogmount</text>
+                                    <text class="rm-end" x="680" y="321">Mid-Western Forestry</text>
+                                    <text x="337" y="757" class="rm-mid">Meenkilly</text>
+                                    <text x="337" y="771" class="rm-mid">School</text>
+                                    <text class="rm-rot" x="371" y="55" transform="rotate(-84 371 55)">Banard</text>
+                                    <text class="rm-rot" x="341" y="222" transform="rotate(-86 341 222)">BUSHY ROAD</text>
+                                    <text class="rm-rot" x="592" y="151" transform="rotate(-51 592 151)">Templeglantine</text>
+                                    <text class="rm-rot" x="468" y="412" transform="rotate(62 468 412)">Bog Road</text>
+                                    <text class="rm-rot" x="536" y="414" transform="rotate(34 536 414)">Tournafulla</text>
+                                    <text class="rm-rot" x="175" y="662" transform="rotate(44 175 662)">to Abbeyfeale</text>
+                                    <text class="rm-rot" x="432" y="872" transform="rotate(23 432 872)">to Mountcollins</text>
+                                    <text class="rm-rot" x="589" y="751" transform="rotate(-78 589 751)">to Mountcollins</text>
+                                </g>
+
+                                <g class="rm-routes">
+                                    <path class="rm-route" data-route="10k" d="M479 321C478 326 475 342 475 348C475 354 480 355 478 360C476 365 467 373 461 378C455 383 449 387 444 390C439 393 437 392 432 396C427 400 419 405 416 414C413 423 419 434 416 450C413 466 403 499 400 512C397 525 398 521 398 526C398 531 396 529 399 540C402 551 412 581 414 592C416 603 414 596 410 604C406 612 393 632 388 640C383 648 384 646 378 652C372 658 360 670 352 676C344 682 344 683 332 688C320 693 295 699 283 704C271 709 266 713 261 718C256 723 249 727 250 732C251 737 254 737 265 746C276 755 301 772 318 788C335 804 356 833 367 844C378 855 378 861 382 856C386 851 387 830 388 816C389 802 386 786 388 774C390 762 399 753 402 746C405 739 404 737 407 732C410 727 416 723 418 718C420 713 420 709 422 704C424 699 426 695 430 690C434 685 439 680 444 676C449 672 455 668 459 664C463 660 466 655 470 650C474 645 480 641 484 636C488 631 490 625 492 620C494 615 491 607 496 607C501 607 503 612 520 620C537 628 584 652 600 657C616 662 615 654 618 652C621 650 623 646 620 645C617 644 607 646 600 644C593 642 603 647 580 636C557 625 485 591 460 579C435 567 436 570 428 566C420 562 418 560 414 556C410 552 407 545 406 540C405 535 405 533 406 526C407 519 410 505 412 498C414 491 419 489 420 484C421 479 419 477 420 470C421 463 423 452 424 444C425 436 424 425 424 420C424 415 424 417 426 414C428 411 434 405 438 402C442 399 443 401 450 396C457 391 476 380 480 372C484 364 475 356 475 348C475 340 478 326 479 321"/>
+                                    <path class="rm-route" data-route="5k" d="M479 321C478 326 475 342 475 348C475 354 480 355 478 360C476 365 467 373 461 378C455 383 449 387 444 390C439 393 437 392 432 396C427 400 419 405 416 414C413 423 419 434 416 450C413 466 403 499 400 512C397 525 398 521 398 526C398 531 398 535 399 540C400 545 402 551 403 556C404 561 406 562 408 568C410 574 412 585 412 590C412 595 424 608 405 600C386 592 330 559 300 542C270 525 237 505 224 496C211 487 219 492 220 490C221 488 225 484 228 486C231 488 226 491 240 500C254 509 288 525 315 540C342 555 389 585 405 592C421 599 410 588 412 584C414 580 414 575 414 570C414 565 415 561 414 556C413 551 407 545 406 540C405 535 405 533 406 526C407 519 410 505 412 498C414 491 419 489 420 484C421 479 419 477 420 470C421 463 423 452 424 444C425 436 424 425 424 420C424 415 424 417 426 414C428 411 434 405 438 402C442 399 443 401 450 396C457 391 476 380 480 372C484 364 475 356 475 348C475 340 478 326 479 321"/>
+                                    <path class="rm-route" data-route="4k" d="M479 321C478 332 477 346 468 346C459 346 437 330 426 322C415 314 411 303 402 298C393 293 379 296 374 290C369 284 376 278 374 260C372 242 364 197 362 180C360 163 362 166 362 160C362 154 363 149 364 144C365 139 365 139 368 132C371 125 378 105 382 104C386 103 388 119 391 124C394 129 398 132 402 136C406 140 409 143 416 146C423 149 437 152 444 155C451 158 453 159 458 162C463 165 466 172 472 174C478 176 486 173 493 174C500 175 510 177 516 180C522 183 526 188 528 192C530 196 537 199 530 204C523 209 496 218 488 222C480 226 485 226 484 228C483 230 482 227 482 234C482 241 482 262 481 270C480 278 476 276 476 282C476 288 481 295 480 306Z"/>
+                                </g>
+
+                                <g class="rm-markers" data-route="10k">
+                                    <g class="rm-dot">
+                                        <circle cx="408" cy="478" r="3.5"/><circle cx="397" cy="624" r="3.5"/><circle cx="277" cy="707" r="3.5"/>
+                                        <circle cx="332" cy="806" r="3.5"/><circle cx="409" cy="735" r="3.5"/><circle cx="484" cy="636" r="3.5"/>
+                                        <circle cx="610" cy="637" r="3.5"/><circle cx="479" cy="589" r="3.5"/><circle cx="417" cy="481" r="3.5"/>
+                                    </g>
+                                    <g class="rm-km"><circle cx="387" cy="470" r="10"/><text x="387" y="476">1K</text></g>
+                                    <g class="rm-km"><circle cx="360" cy="616" r="10"/><text x="360" y="622">2K</text></g>
+                                    <g class="rm-km"><circle cx="266" cy="690" r="10"/><text x="266" y="696">3K</text></g>
+                                    <g class="rm-km"><circle cx="319" cy="825" r="10"/><text x="319" y="831">4K</text></g>
+                                    <g class="rm-km"><circle cx="429" cy="746" r="10"/><text x="429" y="752">5K</text></g>
+                                    <g class="rm-km"><circle cx="502" cy="648" r="10"/><text x="502" y="654">6K</text></g>
+                                    <g class="rm-km"><circle cx="601" cy="617" r="10"/><text x="601" y="623">7K</text></g>
+                                    <g class="rm-km"><circle cx="490" cy="570" r="10"/><text x="490" y="576">8K</text></g>
+                                    <g class="rm-km"><circle cx="438" cy="485" r="10"/><text x="438" y="491">9K</text></g>
+                                </g>
+                                <g class="rm-markers" data-route="5k">
+                                    <g class="rm-km"><circle cx="217" cy="489" r="15"/><text x="217" y="495" class="rm-km-sm">2.5K</text></g>
+                                </g>
+                                <g class="rm-markers" data-route="4k">
+                                    <g class="rm-dot"><circle cx="373" cy="276" r="3.5"/><circle cx="383" cy="124" r="3.5"/><circle cx="524" cy="187" r="3.5"/></g>
+                                    <g class="rm-km"><circle cx="356" cy="275" r="10"/><text x="356" y="281">1K</text></g>
+                                    <g class="rm-km"><circle cx="383" cy="103" r="10"/><text x="383" y="109">2K</text></g>
+                                    <g class="rm-km"><circle cx="533" cy="172" r="10"/><text x="533" y="178">3K</text></g>
+                                </g>
+
+                                <g class="rm-water">
+                                    <circle cx="350" cy="124" r="6"/><circle cx="618" cy="660" r="6"/><circle cx="306" cy="762" r="6"/>
+                                </g>
+
+                                <!-- Start/finish sits above everything: it is the one point
+                                     every route shares. The halo keeps it readable where the
+                                     routes converge on it. -->
+                                <circle class="rm-start-halo" cx="479" cy="321" r="13"/>
+                                <circle class="rm-start" cx="479" cy="321" r="10"/>
+                                <!-- START and FINISH straddle the road, as on the printed map:
+                                     a single centred label sits right on the 4K Walk line. -->
+                                <text class="rm-start-label rm-start-label--l" x="466" y="308">START</text>
+                                <text class="rm-start-label rm-start-label--r" x="492" y="308">FINISH</text>
+                                <text class="rm-venue" x="556" y="268">DROMTRASNA NATIONAL</text>
+                                <text class="rm-venue" x="556" y="283">SCHOOL</text>
+                            </svg>
+                        </div>
+
+                        <p class="route-legend">
+                            <span class="route-legend-item"><span class="route-legend-key route-legend-key--start"></span>Start &amp; finish</span>
+                            <span class="route-legend-item"><span class="route-legend-key route-legend-key--water"></span>Water station</span>
+                            <span class="route-legend-item"><span class="route-legend-key route-legend-key--km"></span>Distance marker</span>
+                            <span class="route-legend-item"><span class="route-legend-key route-legend-key--road"></span>Other routes</span>
+                        </p>
+
+                        <!-- Announces the selection for screen readers; the map itself is
+                             role="img" and cannot report that it changed. -->
+                        <p class="sr-only" id="route-status" role="status"></p>
+
+                        <p class="route-kids">The 2K Kids Run starts at 10:00 AM on a short, supervised route beside the school &mdash; it is not shown on the map above.</p>
                     </div>
 
                     <div class="route-info">
@@ -462,7 +593,7 @@
 
                 <div class="impact-photos impact-photos--single reveal">
                     <div class="impact-photo-card">
-                        <img src="images/cheque-milford.jpg?v=20260729" alt="Presenting cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
+                        <img src="images/cheque-milford.jpg?v=20260730" alt="Presenting cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
                         <span class="photo-caption">Milford Care Centre</span>
                     </div>
                 </div>
@@ -481,100 +612,100 @@
                      js/main.js. tools/check.sh verifies they still agree. -->
                 <div class="gallery-grid" id="gallery-grid" data-stagger="0.08">
                     <button type="button" class="gallery-item stagger-item" data-index="0" aria-label="View event photo 1 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-1.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-1.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="1" aria-label="View event photo 2 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-2.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-2.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="2" aria-label="View event photo 3 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-3.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-3.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="3" aria-label="View event photo 4 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-4.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-4.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="4" aria-label="View event photo 5 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-5.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-5.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="5" aria-label="View event photo 6 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-6.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-6.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="6" aria-label="View event photo 7 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-7.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-7.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="7" aria-label="View event photo 8 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-8.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-8.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="8" aria-label="View event photo 9 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-9.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-9.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="9" aria-label="View event photo 10 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-10.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-10.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="10" aria-label="View event photo 11 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-11.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-11.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="11" aria-label="View event photo 12 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-12.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-12.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="12" aria-label="View event photo 13 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-13.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-13.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="13" aria-label="View event photo 14 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-14.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-14.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="14" aria-label="View event photo 15 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-15.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-15.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="15" aria-label="View event photo 16 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-16.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-16.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="16" aria-label="View event photo 17 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-17.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-17.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="17" aria-label="View event photo 18 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-18.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-18.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="18" aria-label="View event photo 19 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-19.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-19.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="19" aria-label="View event photo 20 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-20.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-20.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="20" aria-label="View event photo 21 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-21.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-21.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="21" aria-label="View event photo 22 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-22.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-22.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="22" aria-label="View event photo 23 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-23.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-23.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="23" aria-label="View event photo 24 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-24.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-24.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="24" aria-label="View event photo 25 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-25.jpg?v=20260729" alt="" width="600" height="900" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-25.jpg?v=20260730" alt="" width="600" height="900" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="25" aria-label="View event photo 26 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-26.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-26.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="26" aria-label="View event photo 27 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-27.jpg?v=20260729" alt="" width="600" height="338" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-27.jpg?v=20260730" alt="" width="600" height="338" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="27" aria-label="View event photo 28 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-28.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-28.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="28" aria-label="View event photo 29 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-29.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-29.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="29" aria-label="View event photo 30 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-30.jpg?v=20260729" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-30.jpg?v=20260730" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="30" aria-label="View event photo 31 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-31.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-31.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="31" aria-label="View event photo 32 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-32.jpg?v=20260729" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-32.jpg?v=20260730" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                 </div>
 
@@ -794,13 +925,13 @@
                          A replacement logo needs its own true width/height. -->
                     <div class="main-sponsors-grid" data-stagger="0.12">
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-1.png?v=20260729" alt="FitAll Shopfitters Ltd" width="300" height="139" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-1.png?v=20260730" alt="FitAll Shopfitters Ltd" width="300" height="139" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-2.png?v=20260729" alt="SuperValu" width="1133" height="318" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-2.png?v=20260730" alt="SuperValu" width="1133" height="318" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-3.png?v=20260729" alt="Devon Inn Hotel" width="338" height="180" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-3.png?v=20260730" alt="Devon Inn Hotel" width="338" height="180" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
@@ -1003,7 +1134,7 @@
             <div class="footer-content">
                 <!-- Column 1: Brand -->
                 <div class="footer-brand">
-                    <img src="images/logo-default.png?v=20260729" alt="Dromtrasna Challenge" class="footer-logo-img" width="400" height="129" loading="lazy" decoding="async">
+                    <img src="images/logo-default.png?v=20260730" alt="Dromtrasna Challenge" class="footer-logo-img" width="400" height="129" loading="lazy" decoding="async">
                     <p class="footer-tagline">Take that step!</p>
                     <div class="footer-social">
                         <a href="https://facebook.com/DromtrasnaChallenge" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
@@ -1050,7 +1181,7 @@
                     <h4 class="footer-heading">proudly supporting</h4>
                     <div class="footer-charity-cards">
                         <a href="https://milfordcarecentre.ie" target="_blank" rel="noopener" class="footer-charity-card">
-                            <img src="images/charity-logos/milford-logo.png?v=20260729" alt="Milford Care Centre" class="footer-charity-logo" width="400" height="225" loading="lazy" decoding="async">
+                            <img src="images/charity-logos/milford-logo.png?v=20260730" alt="Milford Care Centre" class="footer-charity-logo" width="400" height="225" loading="lazy" decoding="async">
                             <span>Milford Care Centre</span>
                         </a>
                     </div>
@@ -1067,6 +1198,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260729" defer></script>
+    <script src="js/main.js?v=20260730" defer></script>
 </body>
 </html> 
