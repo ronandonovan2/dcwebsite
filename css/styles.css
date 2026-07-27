@@ -1,6 +1,6 @@
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 800;font-display:swap;src:url('../fonts/montserrat-variable-latin.woff2?v=20260727')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Permanent Marker';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/permanent-marker-400-latin.woff2?v=20260727')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Plane Crash';src:url('../fonts/planecrash-latin.woff2?v=20260727')format('woff2');font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 800;font-display:swap;src:url('../fonts/montserrat-variable-latin.woff2?v=20260728')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Permanent Marker';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/permanent-marker-400-latin.woff2?v=20260728')format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plane Crash';src:url('../fonts/planecrash-latin.woff2?v=20260728')format('woff2');font-weight:normal;font-style:normal;font-display:swap}
 :root{--color-primary:#1A237E;--color-primary-light:#283593;--color-primary-dark:#0D1642;--color-secondary:#E53935;--color-secondary-light:#EF5350;--color-secondary-dark:#C62828;--color-accent:#FFC107;--color-accent-light:#FFD54F;--color-dark:#1A237E;--color-dark-light:#283593;--gradient-atmospheric:radial-gradient(circle at center,#283593,#1A237E);--gradient-energy:linear-gradient(135deg,#4A148C,#E53935);--color-light:#F8F9FA;--color-white:#FFFFFF;--color-gray-200:#E9ECEF;--color-gray-400:#CED4DA;--color-gray-500:#ADB5BD;--color-gray-600:#697079;--color-gray-700:#495057;--font-display:'Plane Crash','Impact','Arial Black',sans-serif;--font-heading:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;--space-xs:0.25rem;--space-sm:0.5rem;--space-md:1rem;--space-lg:1.5rem;--space-xl:2rem;--space-2xl:3rem;--space-3xl:4rem;--space-4xl:6rem;--radius-sm:4px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;--radius-full:9999px;--shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow-md:0 4px 6px rgba(0,0,0,0.1);--shadow-lg:0 10px 15px rgba(0,0,0,0.1);--shadow-xl:0 20px 25px rgba(0,0,0,0.15);--transition-fast:150ms ease;--transition-base:300ms ease;--transition-slow:500ms ease;--nav-height:95px;--container-max:1200px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:var(--nav-height);overflow-x:hidden;scrollbar-gutter:stable}
@@ -43,8 +43,19 @@ p{margin-bottom:var(--space-md)}
 .btn-large{padding:var(--space-lg)var(--space-2xl);font-size:1.1rem}
 .btn-disabled{background:var(--color-gray-400);border-color:var(--color-gray-400);color:var(--color-gray-700);cursor:not-allowed}
 .btn-disabled:hover{background:var(--color-gray-400);border-color:var(--color-gray-400);color:var(--color-gray-700);transform:none;box-shadow:none}
+/* z-index clears the nav's 1000 so the bar reads over the white sticky header. */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:1001;pointer-events:none;background:transparent}
+.scroll-progress-bar{display:block;height:100%;transform-origin:left center;transform:scaleX(var(--scroll-progress,0));background:linear-gradient(90deg,var(--color-primary),var(--color-secondary),var(--color-accent))}
 .nav-header{position:fixed;top:0;left:0;right:0;height:var(--nav-height);background:transparent;z-index:1000;transition:all var(--transition-base)}
 .nav-header.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow-md)}
+/* Picks up where the hero countdown leaves off. Visibility rides the .scrolled
+   class the nav already toggles, so this needs no scroll listener of its own.
+   Hidden below the nav breakpoint - the hamburger row has no width to spare. */
+.nav-countdown{opacity:0;transform:translateY(-6px);transition:opacity var(--transition-base),transform var(--transition-base);background:var(--color-primary);color:var(--color-white);padding:var(--space-xs)var(--space-md);border-radius:var(--radius-full);font-size:0.8rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
+.nav-countdown[hidden]{display:none}
+.nav-header.scrolled .nav-countdown{opacity:1;transform:none}
+@media (max-width:768px){.nav-countdown{display:none}
+}
 .nav-container{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:var(--container-max);margin:0 auto;padding:0 var(--space-lg)}
 .nav-logo{display:flex;align-items:center}
 .nav-logo-img{height:80px;width:auto;max-width:100%;object-fit:contain;margin-right:0;transition:all var(--transition-base)}
@@ -114,10 +125,10 @@ p{margin-bottom:var(--space-md)}
    the first scroll after load snapped the hero back to scale(1.1). Don't merge
    them, and don't put a transition on .hero-bg-parallax. */
 .hero-bg-parallax{position:absolute;inset:0;will-change:transform}
-.hero-bg{position:absolute;inset:0;background:url('../images/hero.jpg?v=20260727')center/cover no-repeat;transform:scale(1.1);transition:transform 10s ease-out}
+.hero-bg{position:absolute;inset:0;background:url('../images/hero.jpg?v=20260728')center/cover no-repeat;transform:scale(1.1);transition:transform 10s ease-out}
 /* Phones get a 900px variant (136KB vs 395KB). The matching preload hints in
    index.html carry the same breakpoint - keep the two in sync. */
-@media (max-width:768px){.hero-bg{background-image:url('../images/hero-mobile.jpg?v=20260727')}
+@media (max-width:768px){.hero-bg{background-image:url('../images/hero-mobile.jpg?v=20260728')}
 }
 .hero.loaded .hero-bg{transform:scale(1)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,35,126,0.82)0%,rgba(136,14,79,0.62)50%,rgba(230,57,70,0.55)100%);background-size:200% 200%;animation:atmosphericShift 12s ease-in-out infinite}
@@ -125,9 +136,35 @@ p{margin-bottom:var(--space-md)}
 50%{background-position:100% 50%}
 }
 .hero-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");opacity:0.06;pointer-events:none;z-index:1;mix-blend-mode:overlay}
-.hero-content{position:relative;z-index:2;text-align:center;color:var(--color-white);padding:var(--space-xl);max-width:900px}
+/* Sits above .hero-overlay and below .hero-content (z-index 2). soft-light rather
+   than a plain white wash: it lifts the photo underneath instead of fogging it. */
+.hero-light{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 450ms ease;mix-blend-mode:soft-light;background:radial-gradient(circle 380px at var(--hero-light-x,50%)var(--hero-light-y,40%),rgba(255,255,255,0.55),transparent 70%)}
+.hero.is-lit .hero-light{opacity:1}
+/* Decorative 10K route watermark. Desktop only - on a phone it lands under the
+   countdown and reads as noise. The path arrives empty; initHeroRoute copies the
+   `d` over from the route section so the geometry lives in one place. */
+.hero-route{position:absolute;top:15%;right:2%;height:70%;width:auto;z-index:1;pointer-events:none;opacity:0.18;stroke:var(--color-white);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.hero-route-line{transition:stroke-dashoffset 2600ms ease-out}
+@media (max-width:768px){.hero-route{display:none}
+}
+/* opacity/transform/filter are driven per frame from --hero-exit (initParallax),
+   so they must not carry a transition. The var() fallback of 0 is what keeps the
+   hero fully visible under reduced motion and with no JS at all. */
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--color-white);padding:var(--space-xl);max-width:900px;opacity:calc(1 - var(--hero-exit,0)*1.35);transform:translateY(calc(var(--hero-exit,0)*-40px))scale(calc(1 - var(--hero-exit,0)*0.06));will-change:transform,opacity}
+@media (min-width:769px){.hero-content{filter:blur(calc(var(--hero-exit,0)*4px))}
+}
 .hero-date-badge{display:inline-flex;align-items:center;gap:var(--space-sm);background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);padding:var(--space-sm)var(--space-lg);border-radius:var(--radius-full);font-size:0.9rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-white);margin-bottom:var(--space-lg)}
 .hero-title{font-family:'Permanent Marker',cursive;color:var(--color-white);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:400;text-transform:none;letter-spacing:0.02em;text-shadow:0 4px 30px rgba(0,0,0,0.4);margin-bottom:var(--space-md);line-height:1.1}
+/* Each word wipes in left to right. The padding/negative-margin pair widens the
+   clip box past the glyphs so the title's 30px text-shadow is not sheared off at
+   the word edges while the wipe is part-way across. Delays sit between .delay-1
+   and .delay-2 so the badge - title - subtitle cascade still reads in order. */
+.hero-word{display:inline-block;padding:0 0.06em;margin:0 -0.06em;clip-path:inset(0 100% 0 0);opacity:0;animation:wordWipe 700ms cubic-bezier(0.22,1,0.36,1)forwards}
+.hero-word:nth-child(1){animation-delay:0.35s}
+.hero-word:nth-child(2){animation-delay:0.5s}
+.hero-word:nth-child(3){animation-delay:0.65s}
+@keyframes wordWipe{to{clip-path:inset(0 0 0 0);opacity:1}
+}
 .hero-subtitle{font-family:var(--font-body);font-size:clamp(0.95rem,2vw,1.15rem);font-weight:400;color:rgba(255,255,255,0.9);max-width:550px;margin:0 auto var(--space-xl);line-height:1.6}
 .countdown{display:flex;justify-content:center;gap:var(--space-md);margin-bottom:var(--space-xl)}
 .countdown[hidden]{display:none}
@@ -136,13 +173,24 @@ p{margin-bottom:var(--space-md)}
 /* tabular-nums is load-bearing: Montserrat's proportional digits have different
    advance widths, so without it the seconds digit re-flows the whole countdown row
    once a second, forever, above the fold. */
-.countdown-number{font-family:var(--font-heading);font-size:clamp(1.75rem,5vw,2.8rem);font-weight:700;line-height:1;color:var(--color-white);text-shadow:0 2px 10px rgba(0,0,0,0.2);font-variant-numeric:tabular-nums}
+.countdown-number{display:inline-block;font-family:var(--font-heading);font-size:clamp(1.75rem,5vw,2.8rem);font-weight:700;line-height:1;color:var(--color-white);text-shadow:0 2px 10px rgba(0,0,0,0.2);font-variant-numeric:tabular-nums}
+/* The clipping window the digits roll through. */
+.countdown-slot{position:relative;display:block;overflow:hidden;line-height:1;text-align:center}
+/* Days is written unpadded (it legitimately reaches three digits), so without a
+   reserved width the tile visibly narrows the moment the 000 placeholder becomes
+   the real figure. 3ch is exact because the digits are tabular. */
+.countdown-number--days{min-width:3ch}
 .countdown-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;opacity:0.7;margin-top:var(--space-sm);font-weight:500}
-.countdown-item:last-child .countdown-number{animation:countdown-pulse 1s ease-in-out infinite}
+/* On the slot, NOT the number. Both this and the odometer roll animate transform,
+   and as a descendant-plus-class selector this one outranked
+   .countdown-number.digit-change - so the seconds digit kept pulsing and never
+   rolled in, while its outgoing ghost still rolled out. Separate elements, so the
+   tile breathes and the digit inside it rolls, with nothing to win. */
+.countdown-item:last-child .countdown-slot{animation:countdown-pulse 1s ease-in-out infinite}
 @keyframes countdown-pulse{0%,100%{transform:scale(1);opacity:1}
 50%{transform:scale(1.05);opacity:0.9}
 }
-@media (prefers-reduced-motion:reduce){.countdown-item:last-child .countdown-number{animation:none}
+@media (prefers-reduced-motion:reduce){.countdown-item:last-child .countdown-slot{animation:none}
 }
 .hero-buttons{display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap}
 .btn-hero-primary{background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));color:var(--color-white);padding:var(--space-md)var(--space-2xl);font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border-radius:var(--radius-full);box-shadow:0 6px 25px rgba(229,57,53,0.4);transition:all var(--transition-base);border:none}
@@ -154,6 +202,14 @@ p{margin-bottom:var(--space-md)}
 @keyframes scrollFloat{0%,100%{transform:translateY(0);opacity:1}
 50%{transform:translateY(8px);opacity:0.5}
 }
+/* Left sole, then right, then both clear - a pair of steps heading down the page.
+   Composes with the wrapper's scrollFloat bob rather than replacing it. */
+.sc-foot{opacity:0;animation:stepFade 2.4s ease-in-out infinite}
+.sc-foot-r{animation-delay:0.6s}
+@keyframes stepFade{0%,100%{opacity:0}
+15%,55%{opacity:1}
+80%{opacity:0}
+}
 .animate-fade-up{opacity:0;transform:translateY(30px)scale(0.98);animation:fadeUp 0.9s cubic-bezier(0.22,1,0.36,1)forwards}
 .delay-1{animation-delay:0.25s}
 .delay-2{animation-delay:0.5s}
@@ -161,11 +217,17 @@ p{margin-bottom:var(--space-md)}
 .delay-4{animation-delay:1.0s}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)scale(1)}
 }
-@keyframes digitFlip{0%{transform:translateY(-4px)scale(1.04)}
-60%{transform:translateY(1px)scale(0.99)}
-100%{transform:translateY(0)scale(1)}
+/* Odometer: the outgoing value drops out of the slot while the new one arrives
+   from above. updateDigit creates the .countdown-ghost copy and removes it on
+   animationend. */
+@keyframes digitRollIn{from{transform:translateY(-105%);opacity:0}
+to{transform:translateY(0);opacity:1}
 }
-.countdown-number.digit-change{animation:digitFlip 0.4s cubic-bezier(0.22,1,0.36,1)}
+@keyframes digitRollOut{from{transform:translateY(0);opacity:1}
+to{transform:translateY(105%);opacity:0}
+}
+.countdown-number.digit-change{animation:digitRollIn 420ms cubic-bezier(0.22,1,0.36,1)}
+.countdown-ghost{position:absolute;left:0;right:0;top:0;pointer-events:none;animation:digitRollOut 420ms cubic-bezier(0.22,1,0.36,1)forwards}
 .about{background:var(--color-light)}
 .about-content{display:grid;gap:var(--space-3xl)}
 .about-text{max-width:700px}
@@ -251,6 +313,18 @@ p{margin-bottom:var(--space-md)}
 .rm-start-label{fill:var(--color-primary);font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700}
 .rm-start-label--l{text-anchor:end}
 .rm-start-label--r{text-anchor:start}
+/* Travels the route while it draws. initRouteExplorer moves it with a transform
+   attribute and sets data-route so it picks up the route's own colour. */
+.rm-runner[hidden]{display:none}
+.rm-runner{opacity:1;transition:opacity 400ms ease}
+.rm-runner.is-done{opacity:0}
+.rm-runner-halo{fill:var(--color-white);opacity:0.92}
+.rm-runner-head{fill:var(--color-primary)}
+.rm-runner-body{fill:none;stroke:var(--color-primary);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.rm-runner[data-route="5k"] .rm-runner-head{fill:#4A148C}
+.rm-runner[data-route="5k"] .rm-runner-body{stroke:#4A148C}
+.rm-runner[data-route="4k"] .rm-runner-head{fill:var(--color-secondary)}
+.rm-runner[data-route="4k"] .rm-runner-body{stroke:var(--color-secondary)}
 .route-svg.is-interactive .rm-route.is-active{transition:stroke-dashoffset 1600ms ease-out}
 .route-svg.is-interactive .rm-km,.route-svg.is-interactive .rm-dot circle{opacity:0;transition:opacity 340ms ease}
 .route-svg.is-interactive.is-armed .rm-markers.is-active .rm-km,.route-svg.is-interactive.is-armed .rm-markers.is-active .rm-dot circle{opacity:1}
@@ -653,8 +727,14 @@ to{transform:translateX(0)translateZ(0)}
 }
 @media (prefers-reduced-motion:reduce){.hero-overlay{animation:none}
 .scroll-indicator{animation:none}
+/* Infinite, so the blanket rule at the top of this file is not enough - it only
+   shortens the duration, which would park both soles at opacity:0. */
+.sc-foot{animation:none;opacity:1}
 .animate-fade-up{animation:none;opacity:1;transform:none}
+.hero-word{animation:none;opacity:1;clip-path:none}
 .countdown-number.digit-change{animation:none}
+.countdown-ghost{animation:none;opacity:0}
+.hero-route-line{transition:none}
 .counter-number.counted{animation:none}
 .reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.stagger-item{opacity:1;transform:none;transition:none}
 .section-title::after{width:60px;transition:none}
@@ -664,6 +744,7 @@ to{transform:translateX(0)translateZ(0)}
 .route-icon{transform:scale(1);transition:none}
 .route-map.reveal-scale .route-svg{transform:none;opacity:1;transition:none}
 .route-svg.is-interactive .rm-route.is-active,.route-svg.is-interactive .rm-km,.route-svg.is-interactive .rm-dot circle{transition:none}
+.rm-runner{transition:none}
 .faq-answer{transition:none}
 .dropdown-menu{transition:none}
 /* Needs an explicit animation:none. The blanket rule at the top of this file only

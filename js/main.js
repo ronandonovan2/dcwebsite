@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
         initSponsorMarquee,
         initAnimatedCounter,
         initParallax,
+        initHeroSpotlight,
+        initHeroRoute,
+        initScrollProgress,
         initMedalTilt,
         initAnimationPausing
     ].forEach(init => {
@@ -192,6 +195,8 @@ function initCountdown() {
     const secondsEl = document.getElementById('countdown-seconds');
     const countdownEl = document.getElementById('countdown');
     const messageEl = document.getElementById('countdown-message');
+    // The nav pill. Optional - the countdown must still run if it is not there.
+    const navCountdownEl = document.getElementById('nav-countdown');
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
@@ -205,8 +210,31 @@ function initCountdown() {
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function triggerDigitChange(el) {
+    function triggerDigitChange(el, oldValue) {
         if (reducedMotion) return;
+
+        // Drop a copy of the outgoing value into the slot so it can fall out
+        // while the new one rolls in from above. Cloned rather than kept as a
+        // permanent second element: there is then nothing in the markup to keep
+        // in sync with the live digit.
+        const slot = el.parentElement;
+        if (slot && slot.classList.contains('countdown-slot')) {
+            // Never more than one ghost per slot. animationend is what normally
+            // removes it, and that does not fire if the tab is backgrounded
+            // mid-roll - without this they would pile up a node a second.
+            slot.querySelector('.countdown-ghost')?.remove();
+
+            const ghost = el.cloneNode(false);
+            // The clone must not carry the live element's id.
+            ghost.removeAttribute('id');
+            ghost.classList.remove('digit-change');
+            ghost.classList.add('countdown-ghost');
+            ghost.setAttribute('aria-hidden', 'true');
+            ghost.textContent = oldValue;
+            ghost.addEventListener('animationend', () => ghost.remove());
+            slot.appendChild(ghost);
+        }
+
         el.classList.remove('digit-change');
         // Reflow trick to restart animation
         void el.offsetWidth;
@@ -217,7 +245,7 @@ function initCountdown() {
         const oldValue = el.textContent;
         if (oldValue !== newValue) {
             el.textContent = newValue;
-            triggerDigitChange(el);
+            triggerDigitChange(el, oldValue);
         }
     }
 
@@ -229,6 +257,8 @@ function initCountdown() {
             timerId = null;
         }
         if (countdownEl) countdownEl.hidden = true;
+        // The nav pill counts down to a day that has now passed, so it goes too.
+        if (navCountdownEl) navCountdownEl.hidden = true;
         if (!messageEl) return;
         messageEl.textContent = text;
         messageEl.hidden = false;
@@ -249,6 +279,13 @@ function initCountdown() {
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Days only - the pill is a glance, not a second timer. CSS fades it in
+        // with .nav-header.scrolled, so nothing here has to watch the scroll.
+        if (navCountdownEl) {
+            navCountdownEl.textContent = days === 1 ? '1 day to go' : `${days} days to go`;
+            navCountdownEl.hidden = false;
+        }
 
         updateDigit(daysEl, days.toString());
         updateDigit(hoursEl, hours.toString().padStart(2, '0'));
@@ -431,14 +468,68 @@ function initRouteExplorer() {
     // active route stays wound back so the draw-on is not spent off-screen.
     let armed = false;
 
+    const runner = svg.querySelector('.rm-runner');
+    let runnerFrame = null;
+
+    function stopRunner() {
+        if (runnerFrame !== null) {
+            window.cancelAnimationFrame(runnerFrame);
+            runnerFrame = null;
+        }
+    }
+
+    // Rides the tip of the line while it draws. The position is read back out of
+    // the CSS transition each frame rather than re-timed here in JS: the browser
+    // is already interpolating stroke-dashoffset, so reading it is exact by
+    // construction and stays correct if the 1600ms in the stylesheet changes.
+    function rideRunner(path) {
+        stopRunner();
+        if (!runner) return;
+
+        runner.dataset.route = path.dataset.route;
+        runner.classList.remove('is-done');
+        runner.hidden = false;
+
+        const len = lengths.get(path);
+
+        function step() {
+            const raw = parseFloat(window.getComputedStyle(path).strokeDashoffset);
+            const offset = Number.isFinite(raw) ? Math.min(Math.max(raw, 0), len) : 0;
+            const pt = path.getPointAtLength(len - offset);
+            runner.setAttribute('transform', `translate(${pt.x.toFixed(2)} ${pt.y.toFixed(2)})`);
+
+            if (offset > 0.5) {
+                runnerFrame = window.requestAnimationFrame(step);
+                return;
+            }
+            // Every route closes back on the start/finish marker, so parking the
+            // runner there would sit it on top of the one point the map most
+            // needs to show. Fade it out instead.
+            runnerFrame = null;
+            runner.classList.add('is-done');
+        }
+
+        runnerFrame = window.requestAnimationFrame(step);
+    }
+
+    function hideRunner() {
+        stopRunner();
+        if (runner) {
+            runner.hidden = true;
+            runner.classList.remove('is-done');
+        }
+    }
+
     function draw(path, animate) {
         const len = lengths.get(path);
         if (!armed) {
             path.style.strokeDashoffset = String(len);
+            hideRunner();
             return;
         }
         if (!animate || prefersReducedMotion) {
             path.style.strokeDashoffset = '0';
+            hideRunner();
             return;
         }
         // Restart from the beginning, then let the CSS transition run. The
@@ -447,6 +538,7 @@ function initRouteExplorer() {
         path.style.strokeDashoffset = String(len);
         void path.getBoundingClientRect();
         path.style.strokeDashoffset = '0';
+        rideRunner(path);
     }
 
     function select(route, animate) {
@@ -562,7 +654,7 @@ function initGallery() {
     // Gallery image paths (generate for all 32)
     const images = [];
     for (let i = 1; i <= 32; i++) {
-        images.push(`images/gallery/gallery-${i}.jpg?v=20260727`);
+        images.push(`images/gallery/gallery-${i}.jpg?v=20260728`);
     }
 
     function updateCounter() {
@@ -853,7 +945,7 @@ function initAnimationPausing() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const targets = document.querySelectorAll(
-        '.marquee-content, .hero-overlay, .footer-runner, .scroll-indicator, .countdown-item:last-child .countdown-number'
+        '.marquee-content, .hero-overlay, .footer-runner, .scroll-indicator, .sc-foot, .countdown-item:last-child .countdown-slot'
     );
     if (!targets.length) return;
 
@@ -875,6 +967,7 @@ function initParallax() {
     // through that transition, so the parallax lagged seconds behind the scroll
     // and the first scroll after load snapped the hero back to scale(1.1).
     const hero = document.querySelector('.hero-bg-parallax');
+    const content = document.querySelector('.hero-content');
 
     if (!hero || prefersReducedMotion) return;
 
@@ -891,12 +984,133 @@ function initParallax() {
                     hero.style.transform = `translateY(${rate}px)`;
                 }
 
+                // Drives the hero content's fade/lift/blur out (see .hero-content).
+                // Written on EVERY frame, unlike the transform above: clamped and
+                // unguarded so a fast scroll past the fold cannot leave the content
+                // frozen half-faded, and a scroll back to the top always restores it.
+                if (content) {
+                    const progress = Math.min(scrolled / window.innerHeight, 1);
+                    content.style.setProperty('--hero-exit', progress.toFixed(3));
+                }
+
                 ticking = false;
             });
 
             ticking = true;
         }
     }, { passive: true });
+}
+
+/* =====================================================
+   HERO POINTER SPOTLIGHT
+   ===================================================== */
+function initHeroSpotlight() {
+    const hero = document.querySelector('.hero');
+
+    if (!hero || prefersReducedMotion) return;
+
+    // Fine pointers only, for the same reason as the medal tilt: a touch device
+    // never fires pointerleave, so a tap would light the hero and leave it lit.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let pending = null;
+    let ticking = false;
+
+    function apply() {
+        ticking = false;
+        if (!pending) return;
+
+        // Measured per frame rather than cached on enter: the hero moves under
+        // the pointer as the page scrolls, so a stored rect goes stale.
+        const rect = hero.getBoundingClientRect();
+        const x = ((pending.clientX - rect.left) / rect.width) * 100;
+        const y = ((pending.clientY - rect.top) / rect.height) * 100;
+
+        hero.style.setProperty('--hero-light-x', `${x.toFixed(2)}%`);
+        hero.style.setProperty('--hero-light-y', `${y.toFixed(2)}%`);
+    }
+
+    hero.addEventListener('pointermove', (e) => {
+        pending = { clientX: e.clientX, clientY: e.clientY };
+        hero.classList.add('is-lit');
+
+        if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(apply);
+        }
+    });
+
+    hero.addEventListener('pointerleave', () => {
+        pending = null;
+        // Removing the class fades the light out through the CSS transition; the
+        // position is dropped too so the next enter does not start from a stale
+        // point on the far side of the hero.
+        hero.classList.remove('is-lit');
+        hero.style.removeProperty('--hero-light-x');
+        hero.style.removeProperty('--hero-light-y');
+    });
+}
+
+/* =====================================================
+   HERO ROUTE WATERMARK
+   ===================================================== */
+function initHeroRoute() {
+    const line = document.querySelector('.hero-route-line');
+    // Deliberately read from the route section rather than duplicated into the
+    // hero markup: the route geometry lives in exactly one place in this file.
+    const source = document.querySelector('.rm-route[data-route="10k"]');
+
+    if (!line || !source) return;
+
+    const d = source.getAttribute('d');
+    if (!d) return;
+    line.setAttribute('d', d);
+
+    const len = Math.ceil(line.getTotalLength());
+    line.setAttribute('stroke-dasharray', len);
+    line.setAttribute('stroke-dashoffset', len);
+
+    if (prefersReducedMotion) {
+        line.style.strokeDashoffset = '0';
+        return;
+    }
+
+    // After the title has finished writing itself, so the two do not compete.
+    setTimeout(() => {
+        line.style.strokeDashoffset = '0';
+    }, 1200);
+}
+
+/* =====================================================
+   SCROLL PROGRESS BAR
+   ===================================================== */
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress-bar');
+
+    if (!bar) return;
+
+    let ticking = false;
+
+    function update() {
+        ticking = false;
+        // Guarded: a page shorter than the viewport has nothing to scroll, and
+        // the division would be by zero.
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0
+            ? Math.min(Math.max(window.scrollY / scrollable, 0), 1)
+            : 0;
+        bar.style.setProperty('--scroll-progress', progress.toFixed(4));
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(update);
+        }
+    }, { passive: true });
+
+    // Not gated on reduced motion: this is a position indicator, not an effect.
+    update();
 }
 
 /* =====================================================

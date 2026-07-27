@@ -13,6 +13,9 @@
    One rule per line, matching the minified house style of styles.css. */
 .reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.stagger-item{opacity:1;transform:none;transition:none}
 .animate-fade-up{animation:none;opacity:1;transform:none}
+/* The word wipe is pure CSS and runs fine without JS, but keep it consistent with
+   the rule above: no-JS visitors get the finished title, not an animated one. */
+.hero-word{animation:none;opacity:1;clip-path:none}
 .section-title::after{width:60px;transition:none}
 .impact-years,.impact-community,.impact-divider{opacity:1;transform:none;transition:none}
 .impact-card{opacity:1;transform:none;transition:none}
