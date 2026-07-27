@@ -19,6 +19,7 @@
     <meta property="og:site_name" content="Dromtrasna Challenge">
     <meta property="og:locale" content="en_IE">
     <meta property="og:url" content="https://dromtrasnachallenge.com/">
+    <!-- ANNUAL: year + event date. Run tools/set-event-date.py, don't hand-edit. -->
     <meta property="og:title" content="Dromtrasna Challenge 2026 | Take That Step!">
     <meta property="og:description" content="Saturday 17 October 2026 in Abbeyfeale, Co. Limerick. 10K Run, 5K Run, 4K Walk and 2K Kids Run - every step supports Milford Care Centre.">
     <meta property="og:image" content="https://dromtrasnachallenge.com/images/og-image.jpg">
@@ -26,6 +27,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Runners setting off at the start of the Dromtrasna Challenge">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- ANNUAL: year + event date. Run tools/set-event-date.py, don't hand-edit. -->
     <meta name="twitter:title" content="Dromtrasna Challenge 2026 | Take That Step!">
     <meta name="twitter:description" content="Saturday 17 October 2026 in Abbeyfeale, Co. Limerick. 10K Run, 5K Run, 4K Walk and 2K Kids Run - every step supports Milford Care Centre.">
     <meta name="twitter:image" content="https://dromtrasnachallenge.com/images/og-image.jpg">
@@ -45,7 +47,10 @@
     <link rel="stylesheet" href="css/styles.css?v=20260726">
 
     <!-- Structured data: makes the event eligible for Google event rich results.
-         Keep startDate in sync with the countdown in js/main.js and the hero badge. -->
+         ANNUAL: name (year), startDate, endDate and validFrom all change each year.
+         Run tools/set-event-date.py rather than hand-editing - the same date lives
+         in five other places. Don't add comment keys inside the JSON: unknown
+         properties show up as warnings in Google's Rich Results Test. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -154,6 +159,7 @@
                         <li><a href="#events" class="dropdown-link">Events</a></li>
                         <li><a href="#medal" class="dropdown-link">Medal</a></li>
                         <li><a href="#route" class="dropdown-link">Route</a></li>
+                        <!-- ANNUAL: results year - must match the heading in the results section -->
                         <li><a href="#results" class="dropdown-link">2025 Results</a></li>
                     </ul>
                 </li>
@@ -171,6 +177,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-noise"></div>
             <div class="hero-content">
+                <!-- ANNUAL: event date. Run tools/set-event-date.py, don't hand-edit. -->
                 <div class="hero-date-badge animate-fade-up">Saturday, October 17, 2026</div>
 
                 <h1 class="hero-title animate-fade-up delay-1">take that step</h1>
@@ -309,6 +316,8 @@
         <!-- Medal Section -->
         <section class="section medal" id="medal">
             <div class="container">
+                <!-- ANNUAL: medal year, photo (images/medal-YYYY.jpg) and the copy below.
+                     A new photo needs its real width/height on the <img> tag. -->
                 <h2 class="section-title reveal">YOUR 2026 MEDAL</h2>
                 <p class="section-subtitle reveal">A finisher medal rooted in local history</p>
 
@@ -397,6 +406,7 @@
                      search engines without changing the layout. -->
                 <h2 class="sr-only">Our Impact</h2>
                 <div class="impact-header reveal">
+                    <!-- ANNUAL: years running -->
                     <span class="impact-years">11 Years</span>
                     <span class="impact-divider">&bull;</span>
                     <span class="impact-community">One Community</span>
@@ -405,6 +415,8 @@
                 <div class="impact-counter-hero reveal">
                     <div class="impact-counter">
                         <span class="counter-currency">&euro;</span>
+                        <!-- ANNUAL: cumulative total raised. The figure is the data-target
+                             attribute; the visible "0" is animated up to it by js/main.js. -->
                         <span class="counter-number" data-target="238804.16">0</span>
                         <span class="counter-label">Raised for Charity</span>
                     </div>
@@ -415,6 +427,7 @@
                         <p class="impact-message">Every euro stays local, supporting Milford Care Centre when patients and families need it most.</p>
                     </div>
                     <div class="impact-card">
+                        <!-- ANNUAL: last year's total, its year, and the beneficiary sentence -->
                         <div class="highlight-badge">2025 Achievement</div>
                         <p class="highlight-amount">&euro;34,145.63</p>
                         <p class="highlight-text">All proceeds from last year's event went to Milford Care Centre and St. Ita's Community Hospital</p>
@@ -436,6 +449,10 @@
                 <h2 class="section-title reveal">MEMORIES</h2>
                 <p class="section-subtitle reveal">Join hundreds of runners, walkers, and supporters each year</p>
 
+                <!-- ANNUAL: event photos. Use tools/add-gallery-photo.py - adding one by hand
+                     means touching four things that must agree: the thumbnail file, the
+                     full-size file, every "of N" aria-label here, and the loop bound in
+                     js/main.js. tools/check.sh verifies they still agree. -->
                 <div class="gallery-grid" id="gallery-grid" data-stagger="0.08">
                     <button type="button" class="gallery-item stagger-item" data-index="0" aria-label="View event photo 1 of 32 full screen">
                         <img src="images/gallery/thumbs/gallery-1.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
@@ -568,9 +585,15 @@
         <!-- Results Section -->
         <section class="section results" id="results">
             <div class="container">
+                <!-- ANNUAL: results year - must match the nav dropdown label -->
                 <h2 class="section-title reveal">2025 RESULTS</h2>
                 <p class="section-subtitle reveal">Celebrating our fastest finishers</p>
 
+                <!-- ANNUAL: 12 podium places follow (10K and 5K, Men's and Women's, top 3 each).
+                     To see them all without reading this whole block:
+                       grep -n 'leaderboard-title\|leaderboard-category\|class="name"\|class="time"' index.html
+                     Each place is a .podium-item with .position / .name / .time spans.
+                     Keep the gold/silver/bronze classes on 1st/2nd/3rd. -->
                 <div class="leaderboard-grid">
                     <div class="leaderboard reveal-left">
                         <h3 class="leaderboard-title">10K</h3>
@@ -666,6 +689,7 @@
                 </div>
 
                 <div class="results-cta reveal">
+                    <!-- ANNUAL: MyRunResults link - new event id each year -->
                     <a href="https://myrunresults.com/events/dromtrasna_challenge/5972/results" target="_blank" rel="noopener" class="btn btn-primary">
                         View All Results
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -693,6 +717,8 @@
                             <li>Finisher medal for all participants</li>
                             <li>Refreshments at finish line</li>
                         </ul>
+                        <!-- ANNUAL: Eventmaster registration URL - new event id each year.
+                             The same URL also appears in the JSON-LD offers block near the top. -->
                         <a href="https://eventmaster.ie/event/m1wpfyVFM8" class="btn btn-primary btn-large" target="_blank" rel="noopener">
                             Register on Eventmaster
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -734,6 +760,9 @@
 
                 <div class="main-sponsors reveal">
                     <h3 class="sponsors-tier-title">Main Sponsors</h3>
+                    <!-- ANNUAL: main sponsor logos. The company name lives in the img alt
+                         attribute - it is the only place the name appears, so keep it real.
+                         A replacement logo needs its own true width/height. -->
                     <div class="main-sponsors-grid" data-stagger="0.12">
                         <div class="sponsor-logo stagger-item">
                             <img src="images/sponsors/sponsor-1.png?v=20260726" alt="FitAll Shopfitters Ltd" width="300" height="139" loading="lazy" decoding="async">
@@ -749,6 +778,10 @@
 
                 <div class="community-sponsors reveal">
                     <h3 class="sponsors-tier-title">Community Supporters</h3>
+                    <!-- ANNUAL: community sponsor names, one <span class="sponsor-name"> per
+                         line, alphabetised within each row. Split roughly evenly between the
+                         two rows. js/main.js duplicates the row's HTML to make the marquee
+                         loop seamlessly, so add each name once only. -->
                     <!-- Top row - scrolls left -->
                     <div class="sponsors-marquee">
                         <div class="marquee-content" data-marquee-row="1">
@@ -1005,6 +1038,7 @@
             <div class="footer-finish-line" aria-hidden="true"></div>
 
             <div class="footer-bottom">
+                <!-- ANNUAL: copyright year -->
                 <p>&copy; 2026 Dromtrasna Challenge. All rights reserved.</p>
             </div>
         </div>
