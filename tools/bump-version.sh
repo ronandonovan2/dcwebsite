@@ -60,8 +60,9 @@ TOTAL=0
 for f in "${FILES[@]}"; do
     # -o then count lines: grep -c would count matching LINES, not occurrences.
     n="$(grep -o "?v=$OLD" "$f" | wc -l | tr -d ' ')"
-    # BSD sed (macOS) needs the empty arg to -i; this script targets macOS.
-    sed -i '' "s/?v=$OLD/?v=$NEW/g" "$f"
+    # -i.bak works portably on both BSD sed (macOS) and GNU sed (Linux); `sed -i ''`
+    # only works on BSD. Delete the backup immediately after.
+    sed -i.bak "s/?v=$OLD/?v=$NEW/g" "$f" && rm -f "$f.bak"
     printf '  %-18s %3d replaced\n' "$f" "$n"
     TOTAL=$((TOTAL + n))
 done
