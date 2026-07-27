@@ -228,8 +228,14 @@ grep -n "medal-image-photo\|YOUR .* MEDAL" index.html
 1. Add `images/medal-2027.jpg`
 2. Update the `src`, the `alt`, **and the `width`/`height`** to the real pixel
    dimensions — every image on the site carries them to stop the page jumping
-   about as it loads
-3. `git add images/`
+   about as it loads. (The one exception is the lightbox `<img>`, which has no
+   dimensions because all 32 photos share it; `.lightbox-image` gives it a fixed
+   box in CSS instead.)
+3. Export it around **1000px wide**. It renders in a column about 480px wide, so
+   1000px covers a 2× display with nothing to spare. The 2026 medal was originally
+   committed at 1454×1600 / 315KB and re-exported to 999×1100 / 183KB with no
+   visible difference.
+4. `git add images/`
 
 ---
 

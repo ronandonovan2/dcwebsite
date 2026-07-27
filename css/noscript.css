@@ -1,0 +1,32 @@
+/* No-JS fallback.
+   Loaded only from <noscript> in index.html.
+
+   Most of the page is opacity:0 in styles.css and is revealed by the
+   IntersectionObserver in js/main.js. That means if main.js is blocked, 404s or
+   fails to parse, the visitor gets a hero and almost nothing else. This file
+   restores every element that JS would otherwise have to reveal.
+
+   It cannot live in an inline <style> block: /_headers sets style-src 'self' with
+   no 'unsafe-inline', so an inline block is silently dropped. Keep it a separate
+   same-origin file.
+
+   One rule per line, matching the minified house style of styles.css. */
+.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.stagger-item{opacity:1;transform:none;transition:none}
+.animate-fade-up{animation:none;opacity:1;transform:none}
+.section-title::after{width:60px;transition:none}
+.impact-years,.impact-community,.impact-divider{opacity:1;transform:none;transition:none}
+.impact-card{opacity:1;transform:none;transition:none}
+.impact-photo-card{clip-path:none;transition:none}
+.route-icon{transform:scale(1);transition:none}
+.route-map.reveal-scale img{transform:none;opacity:1;transition:none}
+/* The counter needs no rule here: index.html carries the formatted total as the
+   element's text content, and only js/main.js ever resets it to 0 to count up from.
+
+   initGallery never binds, so the lightbox can never open - and the "View All
+   Memories" toggle can never expand the grid. Show all 32 tiles up front and hide
+   the dead button. */
+.gallery-item--extra{display:block}
+.btn-gallery-toggle{display:none}
+/* initSponsorMarquee duplicates the list for a seamless loop; with no JS there is
+   a single copy, so let it wrap instead of running off the edge. */
+.marquee-content{animation:none;flex-wrap:wrap;width:auto;justify-content:center}

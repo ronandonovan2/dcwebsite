@@ -36,18 +36,34 @@ const scrollLock = (function() {
     };
 })();
 
+/* Reduced-motion is read once here and reused throughout. CSS handles most of it,
+   but scrollIntoView({behavior:'smooth'}) is a JS option that html{scroll-behavior}
+   cannot override, so anything calling it has to check this. */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all modules
-    initNavigation();
-    initCountdown();
-    initScrollAnimations();
-    initStaggeredGrids();
-    initFAQ();
-    initGallery();
-    initSponsorMarquee();
-    initAnimatedCounter();
-    initParallax();
-    initAnimationPausing();
+    // Each init runs in its own try/catch. These are independent features, and a
+    // throw in an early one used to abort the whole handler - which took
+    // initScrollAnimations down with it and left most of the page at opacity:0.
+    [
+        initNavigation,
+        initCountdown,
+        initScrollAnimations,
+        initStaggeredGrids,
+        initFAQ,
+        initGallery,
+        initSponsorMarquee,
+        initAnimatedCounter,
+        initParallax,
+        initAnimationPausing
+    ].forEach(init => {
+        try {
+            init();
+        } catch (err) {
+            console.error(`${init.name} failed:`, err);
+        }
+    });
 
     // Add loaded class to hero for animation
     setTimeout(() => {
@@ -152,7 +168,7 @@ function initNavigation() {
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: scrollBehavior
                 });
             }
         });
@@ -285,6 +301,16 @@ function initStaggeredGrids() {
                 items.forEach((item, index) => {
                     item.style.transitionDelay = `${index * staggerDelay}s`;
                     item.classList.add('visible');
+
+                    // Clear the delay once the reveal finishes. transition-delay
+                    // applies to *every* transitioned property, so leaving it set
+                    // meant the last gallery tile waited ~1s before its :hover
+                    // scale started. Same for event cards and sponsor logos.
+                    item.addEventListener('transitionend', function clear(e) {
+                        if (e.target !== item) return;
+                        item.style.transitionDelay = '';
+                        item.removeEventListener('transitionend', clear);
+                    });
                 });
 
                 observer.unobserve(container);
@@ -349,7 +375,7 @@ function initGallery() {
     // Gallery image paths (generate for all 32)
     const images = [];
     for (let i = 1; i <= 32; i++) {
-        images.push(`images/gallery/gallery-${i}.jpg?v=20260726`);
+        images.push(`images/gallery/gallery-${i}.jpg?v=20260727`);
     }
 
     function updateCounter() {
@@ -470,7 +496,7 @@ function initGallery() {
             // When collapsing, scroll back to gallery section top
             if (isExpanded) {
                 document.getElementById('gallery')?.scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: scrollBehavior
                 });
             }
         });
@@ -483,6 +509,10 @@ function initGallery() {
 function initSponsorMarquee() {
     const marqueeContents = document.querySelectorAll('.marquee-content');
     if (!marqueeContents.length) return;
+
+    // The duplicate copy exists purely to make the -50% loop seamless. With the
+    // animation off there is nothing to loop, so skip it and leave one clean copy.
+    if (prefersReducedMotion) return;
 
     marqueeContents.forEach(marqueeContent => {
         const sponsors = marqueeContent.innerHTML;
@@ -572,6 +602,12 @@ function initAnimatedCounter() {
         return;
     }
 
+    // The markup carries the formatted total, not "0", so that a visitor with no
+    // JS sees the real figure rather than "0.00". Reset to zero here - at load,
+    // while the counter is far below the fold - so the count-up still starts from
+    // zero without the reset ever being visible.
+    counter.textContent = formatNumber(0);
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !hasAnimated) {
@@ -615,9 +651,13 @@ function initAnimationPausing() {
    PARALLAX EFFECT
    ===================================================== */
 function initParallax() {
-    const hero = document.querySelector('.hero-bg');
+    // .hero-bg-parallax, NOT .hero-bg. .hero-bg carries a 10s transition for the
+    // scale-in intro; writing the parallax transform there put every rAF update
+    // through that transition, so the parallax lagged seconds behind the scroll
+    // and the first scroll after load snapped the hero back to scale(1.1).
+    const hero = document.querySelector('.hero-bg-parallax');
 
-    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!hero || prefersReducedMotion) return;
 
     let ticking = false;
 
@@ -627,8 +667,9 @@ function initParallax() {
                 const scrolled = window.scrollY;
                 const rate = scrolled * 0.3;
 
+                // translateY only - the scale belongs to .hero-bg underneath.
                 if (scrolled < window.innerHeight) {
-                    hero.style.transform = `scale(1.1) translateY(${rate}px)`;
+                    hero.style.transform = `translateY(${rate}px)`;
                 }
 
                 ticking = false;

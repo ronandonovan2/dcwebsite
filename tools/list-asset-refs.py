@@ -30,7 +30,11 @@ SOURCES = {
     "css/styles.css": "css",
 }
 
-EXTS = "jpg|jpeg|png|webp|svg|ico|woff2"
+# css and js are in here so that stylesheets and scripts get the same
+# "referenced but missing or uncommitted" check as images and fonts. That gap let
+# css/noscript.css - which is only ever referenced from inside <noscript> - deploy
+# as a 404 without anything complaining.
+EXTS = "jpg|jpeg|png|webp|svg|ico|woff2|css|js"
 PATTERN = re.compile(
     r'(?:src|href|content)="([^"]+?\.(?:' + EXTS + r'))'
     r"|url\(['\"]?([^'\")]+?\.(?:" + EXTS + r"))"

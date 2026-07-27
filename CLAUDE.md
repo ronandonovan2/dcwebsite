@@ -79,7 +79,7 @@ hand, or the next run will be wrong too.
 | `tools/` | `check.sh` + the update scripts |
 | `sitemap.xml` | `<lastmod>` is hand-maintained |
 | `site.webmanifest` | Hardcodes the beneficiary name in `description` |
-| `images/hero{,-mobile}.jpg` | Desktop 1600px / phone 900px, swapped at ≤768px |
+| `images/hero{,-mobile}.jpg` | Desktop 1400px / phone 900px, swapped at ≤768px |
 | `images/logo-{default,scrolled}.png` | Nav logo over the hero / on the white sticky nav |
 | `images/gallery/` | Full size, lightbox only. `thumbs/` is the 600px grid |
 

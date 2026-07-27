@@ -9,10 +9,10 @@
     <link rel="canonical" href="https://dromtrasnachallenge.com/">
 
     <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico?v=20260726" sizes="32x32">
-    <link rel="icon" href="/favicon.svg?v=20260726" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260726">
-    <link rel="manifest" href="/site.webmanifest?v=20260726">
+    <link rel="icon" href="/favicon.ico?v=20260727" sizes="32x32">
+    <link rel="icon" href="/favicon.svg?v=20260727" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260727">
+    <link rel="manifest" href="/site.webmanifest?v=20260727">
 
     <!-- Social sharing (Facebook, WhatsApp, Messenger) -->
     <meta property="og:type" content="website">
@@ -38,13 +38,19 @@
          and allows the strict CSP in /_headers.
          Only the two above-the-fold fonts are preloaded; Plane Crash is used
          further down the page and loads normally via font-display:swap. -->
-    <link rel="preload" href="images/hero.jpg?v=20260726" as="image" fetchpriority="high" media="(min-width: 769px)">
-    <link rel="preload" href="images/hero-mobile.jpg?v=20260726" as="image" fetchpriority="high" media="(max-width: 768px)">
-    <link rel="preload" href="fonts/montserrat-variable-latin.woff2?v=20260726" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/permanent-marker-400-latin.woff2?v=20260726" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="images/hero.jpg?v=20260727" as="image" fetchpriority="high" media="(min-width: 769px)">
+    <link rel="preload" href="images/hero-mobile.jpg?v=20260727" as="image" fetchpriority="high" media="(max-width: 768px)">
+    <link rel="preload" href="fonts/montserrat-variable-latin.woff2?v=20260727" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/permanent-marker-400-latin.woff2?v=20260727" as="font" type="font/woff2" crossorigin>
 
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="css/styles.css?v=20260726">
+    <link rel="stylesheet" href="css/styles.css?v=20260727">
+
+    <!-- Most of the page is opacity:0 until js/main.js reveals it on scroll, so
+         without JS the site is close to blank. This restores it. It has to be a
+         separate file rather than an inline <style>: the CSP in /_headers sets
+         style-src 'self' with no 'unsafe-inline'. -->
+    <noscript><link rel="stylesheet" href="css/noscript.css?v=20260727"></noscript>
 
     <!-- Structured data: makes the event eligible for Google event rich results.
          ANNUAL: name (year), startDate, endDate and validFrom all change each year.
@@ -136,11 +142,11 @@
     <header class="nav-header" id="nav-header">
         <nav class="nav-container">
             <a href="#hero" class="nav-logo" aria-label="Dromtrasna Challenge, back to top">
-                <img src="images/logo-default.png?v=20260726" alt="" class="nav-logo-img nav-logo-default" width="400" height="129">
-                <img src="images/logo-scrolled.png?v=20260726" alt="" class="nav-logo-img nav-logo-scrolled" width="656" height="208">
+                <img src="images/logo-default.png?v=20260727" alt="" class="nav-logo-img nav-logo-default" width="400" height="129">
+                <img src="images/logo-scrolled.png?v=20260727" alt="" class="nav-logo-img nav-logo-scrolled" width="656" height="208">
             </a>
 
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
                 <span class="hamburger"></span>
             </button>
 
@@ -149,18 +155,24 @@
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
                 <li class="nav-item dropdown">
-                    <button class="nav-link dropdown-toggle" aria-expanded="false">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="event-info-menu">
                         Event Info
                         <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </button>
-                    <ul class="dropdown-menu">
+                    <!-- Gallery, FAQ and Contact live here rather than as top-level items:
+                         the nav already carries two CTA buttons and cannot take more width.
+                         Keep this list and the footer nav covering the same sections. -->
+                    <ul class="dropdown-menu" id="event-info-menu">
                         <li><a href="#events" class="dropdown-link">Events</a></li>
                         <li><a href="#medal" class="dropdown-link">Medal</a></li>
                         <li><a href="#route" class="dropdown-link">Route</a></li>
                         <!-- ANNUAL: results year - must match the heading in the results section -->
                         <li><a href="#results" class="dropdown-link">2025 Results</a></li>
+                        <li><a href="#gallery" class="dropdown-link">Gallery</a></li>
+                        <li><a href="#faq" class="dropdown-link">FAQs</a></li>
+                        <li><a href="#contact" class="dropdown-link">Contact</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a href="#impact" class="nav-link">Impact</a></li>
@@ -173,7 +185,12 @@
     <main id="main">
         <!-- Hero Section -->
         <section class="hero" id="hero">
-            <div class="hero-bg"></div>
+            <!-- The wrapper is not decorative nesting: js/main.js writes the scroll
+                 parallax transform onto .hero-bg-parallax while .hero-bg keeps the
+                 10s scale-in intro. Sharing one element made them fight. -->
+            <div class="hero-bg-parallax">
+                <div class="hero-bg"></div>
+            </div>
             <div class="hero-overlay"></div>
             <div class="hero-noise"></div>
             <div class="hero-content">
@@ -233,11 +250,11 @@
                         <div class="beneficiary-cards" data-stagger="0.12">
                             <div class="beneficiary-card beneficiary-card--featured stagger-item">
                                 <div class="beneficiary-card-photo">
-                                    <img src="images/cheque-milford.jpg?v=20260726" alt="Presenting the cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
+                                    <img src="images/cheque-milford.jpg?v=20260727" alt="Presenting the cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
                                 </div>
                                 <div class="beneficiary-card-body">
                                     <div class="beneficiary-logo">
-                                        <img src="images/charity-logos/milford-logo.png?v=20260726" alt="Milford Care Centre Logo" width="400" height="225" loading="lazy" decoding="async">
+                                        <img src="images/charity-logos/milford-logo.png?v=20260727" alt="Milford Care Centre Logo" width="400" height="225" loading="lazy" decoding="async">
                                     </div>
                                     <h4>Milford Care Centre</h4>
                                     <p>Providing specialist palliative care and support to patients and families across the Mid-West region.</p>
@@ -323,7 +340,7 @@
 
                 <div class="medal-content">
                     <div class="medal-image reveal-scale">
-                        <img src="images/medal-2026.jpg?v=20260726" alt="2026 Dromtrasna Challenge finisher medal" class="medal-image-photo" width="1454" height="1600" loading="lazy" decoding="async">
+                        <img src="images/medal-2026.jpg?v=20260727" alt="2026 Dromtrasna Challenge finisher medal" class="medal-image-photo" width="999" height="1100" loading="lazy" decoding="async">
                     </div>
                     <div class="medal-info reveal-left delay-1">
                         <h3>Inspired by St. Ita's Well</h3>
@@ -342,7 +359,7 @@
 
                 <div class="route-content">
                     <div class="route-map reveal-scale">
-                        <img src="images/route-map.jpg?v=20260726" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image" width="800" height="952" loading="lazy" decoding="async">
+                        <img src="images/route-map.jpg?v=20260727" alt="Dromtrasna Challenge route map showing 10K, 5K, 4K Walk, and Kids Run routes" class="route-map-image" width="800" height="952" loading="lazy" decoding="async">
                     </div>
 
                     <div class="route-info">
@@ -353,8 +370,15 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Start & Finish</h4>
+                                <h3>Start & Finish</h3>
                                 <p>Dromtrasna National School, Abbeyfeale, Co. Limerick, V94W5RC</p>
+                                <!-- External <a href> only - no maps embed. An iframe would be
+                                     blocked silently by the CSP in /_headers. -->
+                                <p class="route-directions"><a href="https://www.google.com/maps/search/?api=1&amp;query=Dromtrasna%20National%20School%2C%20Abbeyfeale%2C%20Co.%20Limerick%2C%20V94%20W5RC" target="_blank" rel="noopener">Get directions
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a></p>
                             </div>
                         </div>
 
@@ -365,7 +389,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Terrain</h4>
+                                <h3>Terrain</h3>
                                 <p>Mixed road through scenic farmland</p>
                             </div>
                         </div>
@@ -377,7 +401,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Elevation</h4>
+                                <h3>Elevation</h3>
                                 <p>Mixture of downhill, flat and some challenging hills</p>
                             </div>
                         </div>
@@ -389,7 +413,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4>Route Notes</h4>
+                                <h3>Route Notes</h3>
                                 <p>10K follows full loop, 5K takes shorter turn, 4K Walk uses separate scenic path</p>
                             </div>
                         </div>
@@ -401,23 +425,25 @@
         <!-- Impact Section -->
         <section class="section impact" id="impact">
             <div class="container">
-                <!-- The visible "11 Years - One Community" line is styled type, not a heading.
-                     This sr-only h2 gives the section a real heading for screen readers and
-                     search engines without changing the layout. -->
-                <h2 class="sr-only">Our Impact</h2>
-                <div class="impact-header reveal">
+                <!-- The visible "11 Years - One Community" line IS the section heading.
+                     It used to be a div paired with an sr-only h2, which left sighted
+                     users looking at an untitled section. -->
+                <h2 class="impact-header reveal">
                     <!-- ANNUAL: years running -->
                     <span class="impact-years">11 Years</span>
                     <span class="impact-divider">&bull;</span>
                     <span class="impact-community">One Community</span>
-                </div>
+                </h2>
 
                 <div class="impact-counter-hero reveal">
                     <div class="impact-counter">
                         <span class="counter-currency">&euro;</span>
-                        <!-- ANNUAL: cumulative total raised. The figure is the data-target
-                             attribute; the visible "0" is animated up to it by js/main.js. -->
-                        <span class="counter-number" data-target="238804.16">0</span>
+                        <!-- ANNUAL: cumulative total raised. Two copies, deliberately:
+                             data-target drives the count-up, and the text content is the
+                             same figure formatted so it reads correctly with JS disabled.
+                             js/main.js resets the text to 0 at load before animating.
+                             Keep the two in sync. -->
+                        <span class="counter-number" data-target="238804.16">238,804.16</span>
                         <span class="counter-label">Raised for Charity</span>
                     </div>
                 </div>
@@ -436,7 +462,7 @@
 
                 <div class="impact-photos impact-photos--single reveal">
                     <div class="impact-photo-card">
-                        <img src="images/cheque-milford.jpg?v=20260726" alt="Presenting cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
+                        <img src="images/cheque-milford.jpg?v=20260727" alt="Presenting cheque to Milford Care Centre" width="800" height="600" loading="lazy" decoding="async">
                         <span class="photo-caption">Milford Care Centre</span>
                     </div>
                 </div>
@@ -455,105 +481,105 @@
                      js/main.js. tools/check.sh verifies they still agree. -->
                 <div class="gallery-grid" id="gallery-grid" data-stagger="0.08">
                     <button type="button" class="gallery-item stagger-item" data-index="0" aria-label="View event photo 1 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-1.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-1.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="1" aria-label="View event photo 2 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-2.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-2.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="2" aria-label="View event photo 3 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-3.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-3.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="3" aria-label="View event photo 4 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-4.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-4.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="4" aria-label="View event photo 5 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-5.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-5.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="5" aria-label="View event photo 6 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-6.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-6.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="6" aria-label="View event photo 7 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-7.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-7.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="7" aria-label="View event photo 8 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-8.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-8.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item stagger-item" data-index="8" aria-label="View event photo 9 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-9.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-9.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="9" aria-label="View event photo 10 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-10.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-10.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="10" aria-label="View event photo 11 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-11.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-11.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="11" aria-label="View event photo 12 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-12.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-12.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="12" aria-label="View event photo 13 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-13.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-13.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="13" aria-label="View event photo 14 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-14.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-14.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="14" aria-label="View event photo 15 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-15.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-15.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="15" aria-label="View event photo 16 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-16.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-16.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="16" aria-label="View event photo 17 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-17.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-17.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="17" aria-label="View event photo 18 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-18.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-18.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="18" aria-label="View event photo 19 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-19.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-19.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="19" aria-label="View event photo 20 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-20.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-20.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="20" aria-label="View event photo 21 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-21.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-21.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="21" aria-label="View event photo 22 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-22.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-22.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="22" aria-label="View event photo 23 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-23.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-23.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="23" aria-label="View event photo 24 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-24.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-24.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="24" aria-label="View event photo 25 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-25.jpg?v=20260726" alt="" width="600" height="900" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-25.jpg?v=20260727" alt="" width="600" height="900" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="25" aria-label="View event photo 26 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-26.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-26.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="26" aria-label="View event photo 27 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-27.jpg?v=20260726" alt="" width="600" height="338" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-27.jpg?v=20260727" alt="" width="600" height="338" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="27" aria-label="View event photo 28 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-28.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-28.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="28" aria-label="View event photo 29 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-29.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-29.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="29" aria-label="View event photo 30 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-30.jpg?v=20260726" alt="" width="600" height="600" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-30.jpg?v=20260727" alt="" width="600" height="600" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="30" aria-label="View event photo 31 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-31.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-31.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                     <button type="button" class="gallery-item gallery-item--extra" data-index="31" aria-label="View event photo 32 of 32 full screen">
-                        <img src="images/gallery/thumbs/gallery-32.jpg?v=20260726" alt="" width="600" height="400" loading="lazy" decoding="async">
+                        <img src="images/gallery/thumbs/gallery-32.jpg?v=20260727" alt="" width="600" height="400" loading="lazy" decoding="async">
                     </button>
                 </div>
 
                 <div class="gallery-toggle-wrap reveal">
-                    <button class="btn btn-outline btn-gallery-toggle" id="gallery-toggle" aria-expanded="false">
+                    <button class="btn btn-outline btn-gallery-toggle" id="gallery-toggle" aria-expanded="false" aria-controls="gallery-grid">
                         <span class="gallery-toggle-text">View All Memories</span>
                         <svg class="gallery-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
                             <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -703,6 +729,9 @@
         <!-- Register & Donate CTAs -->
         <section class="section cta-section" id="register">
             <div class="container">
+                <h2 class="section-title reveal">TAKE PART</h2>
+                <p class="section-subtitle reveal">Two ways to support Milford Care Centre this October</p>
+
                 <div class="cta-grid">
                     <div class="cta-card register reveal-left">
                         <div class="cta-icon">
@@ -765,13 +794,13 @@
                          A replacement logo needs its own true width/height. -->
                     <div class="main-sponsors-grid" data-stagger="0.12">
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-1.png?v=20260726" alt="FitAll Shopfitters Ltd" width="300" height="139" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-1.png?v=20260727" alt="FitAll Shopfitters Ltd" width="300" height="139" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-2.png?v=20260726" alt="SuperValu" width="1133" height="318" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-2.png?v=20260727" alt="SuperValu" width="1133" height="318" loading="lazy" decoding="async">
                         </div>
                         <div class="sponsor-logo stagger-item">
-                            <img src="images/sponsors/sponsor-3.png?v=20260726" alt="Devon Inn Hotel" width="338" height="180" loading="lazy" decoding="async">
+                            <img src="images/sponsors/sponsor-3.png?v=20260727" alt="Devon Inn Hotel" width="338" height="180" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
@@ -869,61 +898,49 @@
 
                 <div class="faq-list">
                     <div class="faq-item reveal">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>What time does registration open on the day?</span>
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+                            <span>Can I register on the day, or do I need to book in advance?</span>
                             <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <div class="faq-answer">
-                            <p>We encourage everyone to register in advance. The event has sold out in the past, so on-the-day registration will only be available if places remain.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal delay-1">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>Where can I park?</span>
-                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Free parking is available at Dromtrasna National School and in adjacent areas within the community. Please follow the instructions of our stewards on arrival and car pool where possible.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal delay-2">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>Can I register on the day?</span>
-                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer">
+                        <div class="faq-answer" id="faq-answer-1">
                             <p>The event has sold out in previous years, so it's highly unlikely there will be registration available on the day. We'd strongly recommend registering online in advance to guarantee your place.</p>
                         </div>
                     </div>
 
                     <div class="faq-item reveal delay-1">
-                        <button class="faq-question" aria-expanded="false">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+                            <span>Where can I park?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer" id="faq-answer-2">
+                            <p>Free parking is available at Dromtrasna National School and in adjacent areas within the community. Please follow the instructions of our stewards on arrival and car pool where possible.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal delay-2">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
                             <span>Are dogs and buggies allowed on the walk?</span>
                             <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <div class="faq-answer">
+                        <div class="faq-answer" id="faq-answer-3">
                             <p>Yes! The 4K Walk is family-friendly and welcomes dogs (on leads) and buggies. Please be mindful of other participants and clean up after your pets.</p>
                         </div>
                     </div>
 
-                    <div class="faq-item reveal delay-2">
-                        <button class="faq-question" aria-expanded="false">
+                    <div class="faq-item reveal delay-1">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
                             <span>Will there be water stations on the route?</span>
                             <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <div class="faq-answer">
+                        <div class="faq-answer" id="faq-answer-4">
                             <p>Yes, water stations are positioned along the 10K and 5K routes. Hot food and refreshments will also be served at the school afterwards for all participants.</p>
                         </div>
                     </div>
@@ -986,7 +1003,7 @@
             <div class="footer-content">
                 <!-- Column 1: Brand -->
                 <div class="footer-brand">
-                    <img src="images/logo-default.png?v=20260726" alt="Dromtrasna Challenge" class="footer-logo-img" width="400" height="129" loading="lazy" decoding="async">
+                    <img src="images/logo-default.png?v=20260727" alt="Dromtrasna Challenge" class="footer-logo-img" width="400" height="129" loading="lazy" decoding="async">
                     <p class="footer-tagline">Take that step!</p>
                     <div class="footer-social">
                         <a href="https://facebook.com/DromtrasnaChallenge" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
@@ -1013,11 +1030,17 @@
                 <div class="footer-links">
                     <h4 class="footer-heading">quick links</h4>
                     <nav class="footer-nav" aria-label="Footer navigation">
+                        <!-- Same sections as the header nav's Event Info dropdown,
+                             plus About and Impact. If you add a section to one, add it
+                             to the other - the two used to disagree. -->
                         <a href="#about">About</a>
                         <a href="#events">Events</a>
+                        <a href="#medal">Medal</a>
                         <a href="#route">Route</a>
+                        <a href="#results">Results</a>
                         <a href="#impact">Impact</a>
-                        <a href="#faq">FAQ</a>
+                        <a href="#gallery">Gallery</a>
+                        <a href="#faq">FAQs</a>
                         <a href="#contact">Contact</a>
                     </nav>
                 </div>
@@ -1027,7 +1050,7 @@
                     <h4 class="footer-heading">proudly supporting</h4>
                     <div class="footer-charity-cards">
                         <a href="https://milfordcarecentre.ie" target="_blank" rel="noopener" class="footer-charity-card">
-                            <img src="images/charity-logos/milford-logo.png?v=20260726" alt="Milford Care Centre" class="footer-charity-logo" width="400" height="225" loading="lazy" decoding="async">
+                            <img src="images/charity-logos/milford-logo.png?v=20260727" alt="Milford Care Centre" class="footer-charity-logo" width="400" height="225" loading="lazy" decoding="async">
                             <span>Milford Care Centre</span>
                         </a>
                     </div>
@@ -1044,6 +1067,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260726" defer></script>
+    <script src="js/main.js?v=20260727" defer></script>
 </body>
 </html> 
