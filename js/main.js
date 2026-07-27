@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initSponsorMarquee,
         initAnimatedCounter,
         initParallax,
+        initMedalTilt,
         initAnimationPausing
     ].forEach(init => {
         try {
@@ -561,7 +562,7 @@ function initGallery() {
     // Gallery image paths (generate for all 32)
     const images = [];
     for (let i = 1; i <= 32; i++) {
-        images.push(`images/gallery/gallery-${i}.jpg?v=20260731`);
+        images.push(`images/gallery/gallery-${i}.jpg?v=20260727`);
     }
 
     function updateCounter() {
@@ -896,4 +897,65 @@ function initParallax() {
             ticking = true;
         }
     }, { passive: true });
+}
+
+/* =====================================================
+   MEDAL TILT
+   ===================================================== */
+function initMedalTilt() {
+    // .medal-tilt, NOT .medal-image - see the comment on the wrapper in
+    // index.html. The outer element owns the reveal-scale entrance; this one
+    // owns the tilt, so the two transforms never share a property.
+    const frame = document.querySelector('.medal-tilt');
+
+    if (!frame || prefersReducedMotion) return;
+
+    // Fine pointers only. On touch there is no hover to leave, so a tap would
+    // tilt the medal and leave it tilted until the next tap landed somewhere
+    // else - that reads as a rendering fault rather than an effect. Phones
+    // keep the plain photo, which is what they had before.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const MAX_TILT = 8;
+    let pending = null;
+    let ticking = false;
+
+    function apply() {
+        ticking = false;
+        if (!pending) return;
+
+        // Measured here rather than in the handler: getBoundingClientRect
+        // forces layout, and the medal moves with the scroll so the rect
+        // cannot be cached on enter. Once per frame is the floor.
+        const rect = frame.getBoundingClientRect();
+        const x = (pending.clientX - rect.left) / rect.width;
+        const y = (pending.clientY - rect.top) / rect.height;
+
+        frame.style.transform =
+            `rotateX(${((0.5 - y) * 2 * MAX_TILT).toFixed(2)}deg) ` +
+            `rotateY(${((x - 0.5) * 2 * MAX_TILT).toFixed(2)}deg) scale(1.02)`;
+        // Drives the light sweep across the face; see .medal-tilt::after.
+        frame.style.setProperty('--medal-shine', x.toFixed(3));
+    }
+
+    frame.addEventListener('pointermove', (e) => {
+        pending = { clientX: e.clientX, clientY: e.clientY };
+        // .is-tilting drops `transform` from the transition list, so the medal
+        // tracks the pointer 1:1 while it is over it. Removing the class on
+        // leave hands the transform back to the base rule's transition, which
+        // is what eases it back to flat - no JS timing involved.
+        frame.classList.add('is-tilting');
+
+        if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(apply);
+        }
+    });
+
+    frame.addEventListener('pointerleave', () => {
+        pending = null;
+        frame.classList.remove('is-tilting');
+        frame.style.transform = '';
+        frame.style.removeProperty('--medal-shine');
+    });
 }
