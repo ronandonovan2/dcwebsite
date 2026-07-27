@@ -375,7 +375,7 @@ function initGallery() {
     // Gallery image paths (generate for all 32)
     const images = [];
     for (let i = 1; i <= 32; i++) {
-        images.push(`images/gallery/gallery-${i}.jpg?v=20260727`);
+        images.push(`images/gallery/gallery-${i}.jpg?v=20260729`);
     }
 
     function updateCounter() {
