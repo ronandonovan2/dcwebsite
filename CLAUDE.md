@@ -89,7 +89,8 @@ results, register/donate CTAs, sponsors, FAQ, contact, footer.
 **`js/main.js`** — one function per feature, all called from `DOMContentLoaded`:
 `initNavigation`, `initCountdown`, `initScrollAnimations`, `initStaggeredGrids`,
 `initFAQ`, `initRouteExplorer`, `initGallery`, `initSponsorMarquee`,
-`initAnimatedCounter`, `initParallax`, `initAnimationPausing`. Plus a module-level
+`initAnimatedCounter`, `initParallax`, `initHeroSpotlight`, `initHeroRoute`,
+`initScrollProgress`, `initMedalTilt`, `initAnimationPausing`. Plus a module-level
 `scrollLock` used by both the mobile nav and the lightbox (iOS Safari ignores
 `body{overflow:hidden}`, so it pins the body with `position:fixed` and restores the
 scroll offset).
@@ -193,13 +194,14 @@ three separate elements tied together only by matching `data-route`; and the gro
 order is load-bearing —
 
 ```
-rm-road > [rm-routes-base] > rm-routes > rm-place/rm-sub/rm-lane > rm-markers > rm-water > start
+rm-road > [rm-routes-base] > rm-routes > rm-place/rm-sub/rm-lane > rm-markers > rm-water > start > rm-runner
 ```
 
 Labels sit **after** the routes so a 5px line can't bury a place name, and carry a
 white knockout halo (`paint-order:stroke`) for where one crosses anyway. Putting
-the label groups back above `.rm-routes` silently undoes both. Recipe in
-`MAINTENANCE.md` → "Editing the route map".
+the label groups back above `.rm-routes` silently undoes both. `rm-runner` is last
+for the same family of reason — see item 18. Recipe in `MAINTENANCE.md` →
+"Editing the route map".
 
 **14. The unselected routes are hidden by `stroke-dashoffset`, not by opacity.**
 `initRouteExplorer` clones every `.rm-route` into a grey `.rm-route-base` layer
@@ -228,6 +230,39 @@ than viewport width, and those steps **drop** labels as well as grow type
 (`.rm-minor` at ≤480, all of `.rm-lane` at ≤400). The table is in `css/styles.css`
 above the steps. If you change either breakpoint, re-check the widths listed in
 `MAINTENANCE.md` → "Editing the route map".
+
+**17. The seconds tile pulses on `.countdown-slot`, not on `.countdown-number`.**
+Two animations want the countdown digits: `countdown-pulse` (the seconds tile
+breathing, 1s infinite) and `digitRollIn` (the odometer roll on every change).
+Both animate `transform`, so one element can only have one of them — and
+`.countdown-item:last-child .countdown-number` outranks
+`.countdown-number.digit-change`, so putting the pulse back on the number silently
+wins. The symptom is subtle and easy to miss: the outgoing digit's ghost still
+rolls *out* while the new one just appears behind a pulse, so only the seconds
+tile looks wrong and only for 420ms at a time. Keeping the pulse on the wrapping
+slot gives each animation its own element and nothing to fight over.
+
+**18. The `.rm-runner` group must stay the last child of the route SVG.**
+It rides the tip of the line while a route draws. Everything above it in the group
+order is deliberately layered (item 13), and the runner has to clear all of it —
+moved earlier it slides *under* the labels, markers and start/finish dot at exactly
+the moments it is meant to be visible. It is positioned by
+`setAttribute('transform', …)`, which is an SVG attribute and not an inline style,
+so it stays inside the CSP and `tools/check.sh`'s no-`style=` rule. Its position
+each frame is read back out of the CSS transition with
+`getComputedStyle(path).strokeDashoffset` rather than re-timed in JS, so the 1600ms
+in the stylesheet is the single source of truth for the timing — change the
+stylesheet and the runner follows.
+
+**19. The hero's route watermark ships as an empty `<path>` on purpose.**
+`.hero-route-line` carries no `d` in the markup; `initHeroRoute` copies it across
+from `.rm-route[data-route="10k"]` at runtime. That is the same single-source rule
+as item 13 — pasting the `d` into the hero would put the route geometry in two
+places, and the copy would drift the first time anyone re-traces the course.
+Without JavaScript the path simply renders nothing, which is fine: it is
+`aria-hidden` decoration, desktop-only, and at `opacity:0.18` it is deliberately
+near the threshold of visible. If it ever needs dialling, that one value in
+`css/styles.css` is the whole control.
 
 ---
 
