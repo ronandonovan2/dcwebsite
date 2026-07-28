@@ -278,8 +278,6 @@ near the threshold of visible. If it ever needs dialling, that one value in
 
 ## Known open items
 
-- **Donate CTA** is an intentional "Coming Soon" placeholder (`btn-disabled` on a
-  `<span>`, not an `<a>`). Wire up a real URL when one exists.
 - `images/cheque-stitas.jpg` and `images/charity-logos/Friends-of-st-ita-logo.webp`
   are unreferenced, as are the `.records-banner` / `.record*` CSS rules — leftovers
   from when St. Ita's Community Hospital was a co-beneficiary. **Deliberately kept**
